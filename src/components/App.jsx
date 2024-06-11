@@ -1,10 +1,14 @@
 import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import VendorRegister from '../pages/VendorRegister';
 
 function App() {
   return (
-    <div className='container'>
-      <h1>Service spot</h1>
-    </div>
+    <Router>
+      <Routes>
+        <Route path='/VendorRegister' element={<VendorRegister />} />
+      </Routes>
+    </Router>
   );
 }
 
