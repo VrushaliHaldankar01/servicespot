@@ -243,7 +243,7 @@ const VendorRegister = () => {
           </div>
           <div className='text-center mt-3'>
             <p>
-              Already have an account? <a href='#'>Sign in</a>
+              Already have an account? <a href='/Login'>Sign in</a>
             </p>
           </div>
         </form>

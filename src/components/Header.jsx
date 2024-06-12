@@ -15,7 +15,7 @@ function Header() {
                     <li><Link to="/VendorRegister">Become a Vendor</Link></li>
                 </ul>
                 <div className='user-profile'>
-                    <img src='/images/add-user.png' alt="User" />
+                    <Link to = "/Login"><img src='/images/add-user.png' alt="User" /></Link>
                 </div>
             </nav>
         </header>
