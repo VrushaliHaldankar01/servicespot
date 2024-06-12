@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import '../css/Header.css';
 
 function Header() {
@@ -9,9 +10,9 @@ function Header() {
             </div>
             <nav className='nav'>
                 <ul>
-                    <li><a href="#home">Home</a></li>
+                    <li><Link to="/">Home</Link></li>
                     <li><a href="#about">About Us</a></li>
-                    <li><a href="#vendor">Become a Vendor</a></li>
+                    <li><Link to="/VendorRegister">Become a Vendor</Link></li>
                 </ul>
                 <div className='user-profile'>
                     <img src='/images/add-user.png' alt="User" />

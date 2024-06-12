@@ -20,7 +20,9 @@ const Dashboard = () => {
                 <div className="service-list">
                     {Array(3).fill().map((_, index) => (
                         <div className="service-card" key={index}>
-                            <div className="service-image">img</div>
+                            <div className="service-image">
+                                <img src="/images/dummyuser.png" alt="Service"/>
+                            </div>
                             <div className="service-details">
                                 <h4>Your Partner in Plumbing, for a Lifetime of Comfort</h4>
                                 <p>Business name</p>
@@ -34,7 +36,9 @@ const Dashboard = () => {
                 <div className="service-list">
                     {Array(3).fill().map((_, index) => (
                         <div className="service-card" key={index}>
-                            <div className="service-image">img</div>
+                            <div className="service-image">
+                                <img src="/images/dummyuser.png" alt="Service"/>
+                            </div>
                             <div className="service-details">
                                 <h4>Your Partner in Plumbing, for a Lifetime of Comfort</h4>
                                 <p>Business name</p>

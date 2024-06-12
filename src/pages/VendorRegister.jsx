@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './VendorRegisterModule.css';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 const VendorRegister = () => {
   const [formData, setFormData] = useState({
@@ -35,9 +36,11 @@ const VendorRegister = () => {
   };
 
   return (
-    
-    <div className='container' style={{ maxWidth: '700px' }}>
+    <div>
       <Header/>
+   
+    <div className='container mt-4 mb-4' style={{ maxWidth: '700px' }}>
+      
       <div className='registration-box p-4 rounded'>
         <form onSubmit={handleSubmit} className='p-4 rounded'>
           <h3>Register as Vendor</h3>
@@ -245,6 +248,8 @@ const VendorRegister = () => {
           </div>
         </form>
       </div>
+    </div>
+    <Footer/>
     </div>
   );
 };
