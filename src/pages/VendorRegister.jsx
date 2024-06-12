@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './VendorRegisterModule.css';
+import Header from '../components/Header';
 
 const VendorRegister = () => {
   const [formData, setFormData] = useState({
@@ -34,7 +35,9 @@ const VendorRegister = () => {
   };
 
   return (
+    
     <div className='container' style={{ maxWidth: '700px' }}>
+      <Header/>
       <div className='registration-box p-4 rounded'>
         <form onSubmit={handleSubmit} className='p-4 rounded'>
           <h3>Register as Vendor</h3>
