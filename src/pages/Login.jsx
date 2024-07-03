@@ -4,6 +4,7 @@ import './UserRegisterModule.css';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import axios from 'axios'; // Import Axios
+import { useNavigate } from 'react-router-dom'; 
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -12,6 +13,7 @@ const Login = () => {
   });
 
   const [error, setError] = useState('');
+  const [errors, setErrors] = useState({}); 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -19,11 +21,30 @@ const Login = () => {
       [name]: value,
     });
   };
+  const validate = () => {
+    const newErrors = {};
+    if (!formData.email) {
+      newErrors.email = 'Email is required';
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = 'Email address is invalid';
+    }
 
+    if (!formData.password) {
+      newErrors.password = 'Password is required';
+    }
+
+    return newErrors;
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     // Handle form submission logic here
-    console.log(formData);
+    const validationErrors = validate();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+    } else {
+      // Handle form submission logic here
+      console.log(formData);
+    }
     try {
       const response = await axios.post('http://localhost:4000/user/login', {
         email: formData.email,
@@ -57,8 +78,10 @@ const Login = () => {
                 name='email'
                 value={formData.email}
                 onChange={handleChange}
-                required
+                
               />
+                         {errors.email && <p className='text-danger'>{errors.email}</p>}
+
             </div>
             <div className='form-group mb-3'>
               <label>Password</label>
@@ -68,8 +91,9 @@ const Login = () => {
                 name='password'
                 value={formData.password}
                 onChange={handleChange}
-                required
+                
               />
+           {errors.password && <p className='text-danger'>{errors.password}</p>}
             </div>
             <div className='text-center'>
               <button
@@ -89,6 +113,7 @@ const Login = () => {
           </form>
         </div>
       </div>
+      <Footer/>
     </div>
   );
 };
