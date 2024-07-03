@@ -24,6 +24,7 @@ const VendorRegister = () => {
 
   const [file, setFile] = useState(null);
   const [errors, setErrors] = useState({});
+  const navigate = useNavigate(); 
 
   const provinces = [
     'Alberta',
@@ -148,6 +149,7 @@ const VendorRegister = () => {
           // }
         );
         console.log(response.data);
+        navigate('/Login');
         // Handle successful registration (e.g., redirect, show success message)
       } catch (error) {
         console.log('Error', error);

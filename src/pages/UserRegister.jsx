@@ -4,7 +4,6 @@ import './UserRegisterModule.css';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import axios from 'axios';
-import Login from './Login';
 import { useNavigate } from 'react-router-dom'; 
 
 const UserRegister = () => {
@@ -85,6 +84,7 @@ const UserRegister = () => {
         );
         console.log(response.data);
         setError('');
+        navigate('/Login');
         // Handle success (e.g., redirect user, update state)
       } catch (error) {
         console.error('Registration Error:', error);
@@ -97,32 +97,32 @@ const UserRegister = () => {
     }
   };
 
-  const handleSubmitLogin = async (e) => {
-    e.preventDefault();
+  // const handleSubmitLogin = async (e) => {
+  //   e.preventDefault();
 
-    try {
-      const response = await axios.post(
-        'http://localhost:4000/user/login',
-        {
-          email: formData.email,
-          password: formData.password,
-        }
-      );
-      console.log('Login Response:', response.data);
-      localStorage.setItem('token', response.data.token);
-      setError('');
-      navigate('/Login');
-      // Handle success (e.g., redirect user, update state)
-    } catch (error) {
-      console.error('Login Error:', error);
-      setError(
-        error.response.data.error ||
-          'An unexpected error occurred. Please try again.'
-      );
-      // Handle error (e.g., display error message to user)
-    }
+  //   try {
+  //     const response = await axios.post(
+  //       'http://localhost:4000/user/login',
+  //       {
+  //         email: formData.email,
+  //         password: formData.password,
+  //       }
+  //     );
+  //     console.log('Login Response:', response.data);
+  //     localStorage.setItem('token', response.data.token);
+  //     setError('');
+  //     navigate('/Login');
+  //     // Handle success (e.g., redirect user, update state)
+  //   } catch (error) {
+  //     console.error('Login Error:', error);
+  //     setError(
+  //       error.response.data.error ||
+  //         'An unexpected error occurred. Please try again.'
+  //     );
+  //     // Handle error (e.g., display error message to user)
+  //   }
 
-  };
+  // };
 
   return (
     <div>

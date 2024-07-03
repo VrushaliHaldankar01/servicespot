@@ -4,7 +4,7 @@ import './UserRegisterModule.css';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import axios from 'axios'; // Import Axios
-import { useNavigate } from 'react-router-dom'; 
+import { Navigate } from 'react-router-dom';
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -14,6 +14,7 @@ const Login = () => {
 
   const [error, setError] = useState('');
   const [errors, setErrors] = useState({}); 
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -53,6 +54,7 @@ const Login = () => {
       console.log('rsponse', response);
       localStorage.setItem('token', response.data.token);
       setError('');
+      setIsLoggedIn(true);
     } catch (error) {
       console.log('error', error.response.data);
       setError(
@@ -62,6 +64,9 @@ const Login = () => {
       // setError(error.response.data);
     }
   };
+  if (isLoggedIn) {
+    return <Navigate to="/Dashboard" replace/>;
+  }
 
   return (
     <div>
@@ -78,9 +83,8 @@ const Login = () => {
                 name='email'
                 value={formData.email}
                 onChange={handleChange}
-                
               />
-                         {errors.email && <p className='text-danger'>{errors.email}</p>}
+              {errors.email && <p className='text-danger'>{errors.email}</p>}
 
             </div>
             <div className='form-group mb-3'>
