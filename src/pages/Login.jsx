@@ -69,9 +69,9 @@ const Login = () => {
   }
 
   return (
-    <div>
+    <div className="d-flex flex-column min-vh-100">
       <Header />
-      <div className='container mt-4 mb-4' style={{ maxWidth: '700px' }}>
+      <div className='container mt-4 mb-4 flex-grow-1' style={{ maxWidth: '700px' }}>
         <div className='registration-box p-4 rounded'>
           <form onSubmit={handleSubmit} className='p-4 rounded'>
             <h3>Login</h3>
