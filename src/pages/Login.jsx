@@ -19,7 +19,7 @@ const Login = () => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: value,
+      [name]: value
     });
   };
   const validate = () => {
@@ -43,26 +43,21 @@ const Login = () => {
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
     } else {
-      // Handle form submission logic here
-      console.log(formData);
-    }
     try {
       const response = await axios.post('http://localhost:4000/user/login', {
         email: formData.email,
         password: formData.password,
       });
-      console.log('rsponse', response);
+      localStorage.setItem('user', JSON.stringify(response.data.user));
       localStorage.setItem('token', response.data.token);
       setError('');
       setIsLoggedIn(true);
     } catch (error) {
       console.log('error', error.response.data);
-      setError(
-        error.response.data.error ||
-          'An unexpected error occurred. Please try again.'
-      );
+      setError(error.response.data.error ||'An unexpected error occurred. Please try again.');
       // setError(error.response.data);
     }
+  }
   };
   if (isLoggedIn) {
     return <Navigate to="/Dashboard" replace/>;
@@ -111,7 +106,7 @@ const Login = () => {
 
             <div className='text-center mt-3'>
               <p>
-                Don't have an account? <a href='/UserRegister'>Sign up</a>
+                Don't have an account? <a href='/UserRegister'>Sign Up</a>
               </p>
             </div>
           </form>

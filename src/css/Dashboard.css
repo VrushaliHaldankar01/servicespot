@@ -1,9 +1,8 @@
+/* General CSS */
 .hero-section {
   text-align: center;
   padding: 20px;
-  position:relative;
-  /* background: url('/public/images/background-image.jpg') no-repeat center center; */
-  /* background-size: cover; */
+  position: relative;
   display: flex;
   color: #fff;
   height: 300px;
@@ -11,6 +10,7 @@
   justify-content: center;
   align-items: center;
 }
+
 .hero-section::before {
   content: "";
   background: url('/public/images/background-image.jpeg') no-repeat center center;
@@ -23,20 +23,16 @@
   height: 100%;
   z-index: -1;
 }
+
 .hero-section h2, .hero-section p {
   z-index: 1;
   position: relative;
 }
 
 .hero-section h2 {
-  /* font-size: 36px;
-  font-weight: 500;
-  text-shadow: 8px 6px 8px rgba(250, 5, 5, 0.5);
-  margin-top: 70px; */
   font-size: 30px;
   font-weight: 600;
   text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7); /* Optional: text shadow for better readability */
-  /* text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); */
   margin: 0 0 10px;
   margin-top: 70px;
 }
@@ -45,100 +41,142 @@
   font-size: 30px;
   margin-top: 10px;
   margin-bottom: 30px;
-  /* font-size: 18px;
-  margin: 10px 0; */
 }
+
 .search-bar {
   width: 100%;
   max-width: 600px;
-  /* margin: 20px auto 0;  */
   z-index: 1;
   position: relative;
 }
-
-/* .search-bar input {
-  width: 80%;
-  padding: 10px;
-  border: none;
-  border-radius: 5px 0 0 5px;
-  outline: none;
-}
-
-.search-bar button {
-  width: 20%;
-  padding: 10px;
-  border: none;
-  border-radius: 0 5px 5px 0;
-  cursor: pointer;
-  background-color: #000;
-  color: #fff;
-} */
 
 .content-section {
   padding: 20px;
 }
 
-/* .content-section h3 {
-  font-size: 20px;
-  margin-bottom: 15px;
-} */
-h3 {
-  font-size: 24px;
-  margin-bottom: 10px;
-}
-p{
-  font-size: 16px;
-  margin-bottom: 20px;
-}
-.service-list {
+/* Section Headers */
+.section-header {
   display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
-/* .service-card {
-  background: #fff;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+.viewall {
+  color: #060606;
+  text-decoration: none;
+}
+.section-header h3 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.section-header a {
+  color: #040404;
+  text-decoration: none;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-weight: 600;
+}
+
+/* Category List and Cards */
+.categories-container{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.category-list, .service-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.category-card {
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  align-items: center; /* Center items horizontally */
+ 
+ justify-content: center; 
+ text-align: center;
+ background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  width: 150px;
+  height: auto;
+  margin: 10px;
+  padding: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+}
+
+.category-card:hover {
+  transform: scale(1.05);
+}
+
+.category-card .category-image {
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
   overflow: hidden;
-  width: 30%;
-  margin-bottom: 20px;
-  text-align: center;
-  padding: 10px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-} */
+  margin-bottom: 10px; /* Adjusted margin */
+  display: flex;
+  align-items: center; /* Center image vertically */
+  justify-content: center; /* Center image horizontally */
+}
+
+.category-card .category-image img {
+  width: 100%;
+  height: auto;
+}
+.category-image img {
+  border-radius: 50%;
+  width: 80px; /* Adjust as needed */
+  height: 80px; /* Adjust as needed */
+}
+
+.category-card .category-details {
+  text-align: center; /* Center text */
+}
+
+.category-card .category-details h1 {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.category-card .category-details p {
+  margin: 0;
+  font-size: 14px;
+}
+
+/* Service Cards */
 .service-card {
   display: flex;
+  align-items: center; /* Center items vertically */
   background: #fff;
   border: 1px solid #ddd;
   border-radius: 5px;
   width: 30%;
   margin-bottom: 20px;
   padding: 10px;
-  /* text-align: center; */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
 }
 
-/* .service-card .service-image {
-  background: #eee;
-  height: 100px;
-  margin-bottom: 10px;
-} */
+.service-card:hover {
+  transform: scale(1.05);
+}
+
 .service-card .service-image {
   flex: 0 0 60px;
-  /* background: #eee; */
   border-radius: 50%;
   width: 60px;
   height: 60px;
-  /* margin: 0 auto 10px; */
-  /* display: flex; */
-  /* align-items: center; */
-  /* justify-content: center; */
-  font-size: 24px;
   overflow: hidden;
   margin-right: 10px;
-  /* color: #999; */
+  display: flex;
+  align-items: center; /* Center image vertically */
+  justify-content: center; /* Center image horizontally */
 }
+
 .service-card .service-image img {
   width: 100%;
   height: auto;
@@ -146,24 +184,30 @@ p{
 
 .service-card .service-details {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center text vertically */
 }
 
-/* .service-card .service-details h4 {
-  font-size: 16px;
-  margin-bottom: 5px;
-} */
-.service-details h4 {
+.service-card .service-details h4 {
   font-size: 18px;
   margin-bottom: 5px;
 }
-.service-details p {
+
+.service-card .service-details p {
   margin: 0;
   font-size: 14px;
 }
-/* .service-card .service-details p {
-  font-size: 14px;
-  margin: 2px 0;
-} */
+
+/* Slick Slider Overrides */
+.slick-slide {
+  display: flex;
+  justify-content: center;
+}
+
+.slick-slide .category-card {
+  width: 90% !important;
+}
 
 /* Responsive Design */
 @media (max-width: 768px) {
@@ -192,7 +236,24 @@ p{
     margin-bottom: 10px;
   }
 
-  .service-card {
-    width: 100%;
+  .category-card, .service-card {
+    flex: 1 1 calc(50% - 20px);
   }
+}
+
+@media (max-width: 480px) {
+  .category-card, .service-card {
+    flex: 1 1 100%;
+  }
+}
+
+/* General Text Styles */
+h3 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 16px;
+  margin-bottom: 20px;
 }

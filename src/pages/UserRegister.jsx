@@ -24,7 +24,7 @@ const UserRegister = () => {
     const { name, value, type, checked } = e.target;
     setFormData({
       ...formData,
-      [name]: type === 'checkbox' ? checked : value,
+      [name]: type === 'checkbox' ? checked : value
     });
   };
 
@@ -96,33 +96,6 @@ const UserRegister = () => {
       }
     }
   };
-
-  // const handleSubmitLogin = async (e) => {
-  //   e.preventDefault();
-
-  //   try {
-  //     const response = await axios.post(
-  //       'http://localhost:4000/user/login',
-  //       {
-  //         email: formData.email,
-  //         password: formData.password,
-  //       }
-  //     );
-  //     console.log('Login Response:', response.data);
-  //     localStorage.setItem('token', response.data.token);
-  //     setError('');
-  //     navigate('/Login');
-  //     // Handle success (e.g., redirect user, update state)
-  //   } catch (error) {
-  //     console.error('Login Error:', error);
-  //     setError(
-  //       error.response.data.error ||
-  //         'An unexpected error occurred. Please try again.'
-  //     );
-  //     // Handle error (e.g., display error message to user)
-  //   }
-
-  // };
 
   return (
     <div>
