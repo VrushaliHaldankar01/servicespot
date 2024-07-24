@@ -3,6 +3,10 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Dashboard from '../pages/Dashboard';
 import VendorRegister from '../pages/VendorRegister';
 import VendorDashboard from '../pages/VendorDashboard';
+import CategoryPage from '../pages/CategoryPage';
+import Profile from '../pages/Profile';  // Import Profile component
+
+
 import UserRegister from '../pages/UserRegister';
 import Login from '../pages/Login';
 import About from '../pages/About';
@@ -25,6 +29,8 @@ function App() {
         <Route path='/Contact' element={<Contact />} />
         <Route path='/Privacy' element={<Privacy />} />
         <Route path='/VendorDashboard' element={<VendorDashboard />} />
+        <Route path='/categories' element={<CategoryPage />} />
+        <Route path='/Profile' element={<Profile />} />  {/* Add Profile route */}
 
       </Routes>
     </Router>

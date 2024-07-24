@@ -12,9 +12,6 @@
   flex:1;
   min-width: 200px;
 }
-.footer-info p {
-  color: #f9f6f6;
-}
 .footer-links{
   display: flex;
   flex-wrap: wrap;
@@ -24,7 +21,7 @@
 }
 
 .footer-links a {
-  color: #f9f6f6;
+  color: #fff;
   margin-left: 20px;
   text-decoration: none;
 }

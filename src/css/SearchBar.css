@@ -1,10 +1,22 @@
 /* src/components/SearchBar.css */
-.search-bar input {
-    padding: 10px;
-    /* width: 100%; */
-    width: 40%;
-    margin-top: 10px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    font-size: 15px;
-  }
+.search-container {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+.search-container input {
+  width: 100%;
+  padding: 10px 40px 10px 10px; /* Add padding to the right to make space for the icon */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+.search-container .search-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #ccc;
+  font-size: 16px;
+}
