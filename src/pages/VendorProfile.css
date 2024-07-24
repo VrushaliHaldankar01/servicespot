@@ -1,0 +1,90 @@
+
+.vendor-profile {
+  width: 90%;
+  max-width: 800px;
+  margin: 30px auto;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+}
+
+/* Heading style */
+.vendor-profile h3 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333333;
+  text-align: center;
+}
+
+/* Container for profile details */
+.profile-details {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Styles for the profile form and info sections */
+.profile-info, .profile-form {
+  margin-bottom: 20px;
+}
+
+/* Form label styles */
+.profile-form label {
+  display: block;
+  margin-bottom: 15px;
+  font-weight: bold;
+  color: #555555;
+}
+
+/* Input field styles */
+.profile-form input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #dddddd;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+/* Error message styles */
+.error {
+  color: #e74c3c;
+  font-size: 0.9em;
+  margin-top: 5px;
+  display: block;
+}
+
+/* Profile info paragraph styles */
+.profile-info p {
+  margin-bottom: 15px;
+  font-size: 16px;
+  color: #444444;
+}
+
+/* Button styles */
+.profile-form button, .profile-info button {
+  padding: 10px 15px;
+  margin-right: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  color: #ffffff;
+  background-color: #007bff;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.profile-form button:hover, .profile-info button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+/* Button for cancel action with different color */
+.profile-form button:nth-of-type(2) {
+  background-color: #6c757d;
+}
+
+.profile-form button:nth-of-type(2):hover {
+  background-color: #5a6268;
+  transform: scale(1.05);
+}

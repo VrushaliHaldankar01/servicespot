@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './UserRegisterModule.css';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -19,7 +20,7 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission logic here
+  
     console.log(formData);
   };
 
@@ -62,12 +63,13 @@ const Login = () => {
           </div>
           <div className='text-center mt-3'>
             <p>
-              Don't have an account? <a href='/UserRegister'>Sign up</a>
+              Don't have an account? <a href='/UserRegister'>Sign Up</a>
             </p>
           </div>
         </form>
       </div>
     </div>
+    <Footer/>
     </div>
   );
 };

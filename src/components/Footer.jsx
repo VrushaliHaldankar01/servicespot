@@ -9,9 +9,9 @@ const Footer = () => {
         <p>© 2024 ServiceSpot. All rights reserved.</p>
       </div>
       <div className="footer-links">
-        <a href="#terms">Terms & Conditions</a>
-        <a href="#privacy">Privacy Policy</a>
-        <a href="#contact">Contact</a>
+        <a href="/Terms">Terms & Conditions</a>
+        <a href="/Privacy">Privacy Policy</a>
+        <a href="/Contact">Contact</a>
       </div>
     </footer>
   );

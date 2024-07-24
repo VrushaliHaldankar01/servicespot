@@ -1,0 +1,225 @@
+
+.vendor-dashboard {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.dashboard-container {
+  display: flex;
+  flex: 1;
+}
+
+.vendor-catalogue {
+  font-size: bold;
+  text-align: center;
+
+}
+
+.sidebar {
+  width: 250px;
+  background-color: #afb3b3;
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+
+.dashboard-menu button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  background-color: #343a40;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  text-align: center;
+  cursor: pointer;
+  font-size: 1.5rem;
+}
+
+.dashboard-menu button:hover {
+  background-color: #6b88a5;
+}
+
+.dashboard-section {
+  flex: 1;
+  padding: 20px;
+}
+
+.shadow-box-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  background-color: #dee2e6;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+}
+
+.shadow-box-heading h3 {
+  font-size: 2rem; 
+  font-weight: bold; 
+  margin: 0; 
+  text-align: center;
+  color: #050505; 
+}
+
+.shadow-box-heading:hover {
+  background-color: #9c9c9c;
+}
+
+.shadow-box-heading span {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.vendor-catalogue ul,
+.appointments-list ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.vendor-catalogue li,
+.appointments-list li {
+  padding: 10px;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.vendor-catalogue h4 {
+  margin: 0;
+}
+
+.appointments-overview,
+.appointments-list,
+.appointment-requests {
+  margin-bottom: 2rem;
+}
+
+.appointments-overview {
+  margin-bottom: 2rem;
+}
+
+.appointment-requests {
+  margin-top: 2rem;
+}
+.highlighted-date {
+  background-color: #2ce04d; /* Yellow background for highlighted dates */
+  border-radius: 80%;
+  color: black;
+}
+
+/* Style for the card container */
+
+.services-card-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 10px;
+}
+
+/* Each individual service card */
+.service-card {
+  background-color: lightgray;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  flex: 1 1 300px; 
+  max-width: 300px;
+  display: flex;
+  flex-direction: column; 
+  
+}
+
+.service-card:hover {
+  
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  background-color: #9f9d9d; /* Change to your desired hover color */
+}
+
+
+/* Service name at the top of the card */
+.service-name {
+  font-size: 1.5rem; 
+  margin-bottom: 20px;
+  font-weight: bold; 
+}
+.sidebar h2 {
+  font-weight: bold; /* Makes the text bold */
+  font-size: 2rem; /* Adjust font size as needed */
+  color: #0a0a0a; /* Dark grey color for readability */
+  margin: 10; /* Remove default margin */
+}
+
+/* Service description under the name */
+.service-description {
+  font-size: 1.25rem; 
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+/* Service price at the bottom */
+.service-price {
+  font-size: 1rem; 
+  color: #040404;
+  font-weight: bold;
+}
+
+
+
+@media (max-width: 992px) {
+  .dashboard-container {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    box-shadow: none;
+  }
+
+  .dashboard-menu button {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .shadow-box-heading {
+    font-size: 1rem;
+  }
+
+  .shadow-box-heading span {
+    font-size: 1.25rem;
+  }
+
+  .vendor-catalogue li,
+  .appointments-list li {
+    font-size: 0.875rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .sidebar {
+    padding: 10px;
+  }
+
+  .dashboard-menu button {
+    padding: 8px;
+    font-size: 0.8rem;
+  }
+
+  .shadow-box-heading {
+    font-size: 0.875rem;
+  }
+
+  .shadow-box-heading span {
+    font-size: 1rem;
+  }
+}
