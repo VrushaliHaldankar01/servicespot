@@ -1,0 +1,140 @@
+/* VendorProfile.css */
+
+/* Container for the entire profile section */
+.vendor-profile {
+  padding: 20px;
+  background: linear-gradient(135deg, #8ec5fc 0%, #e0c3fc 100%);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 1000px;
+  margin: auto;
+}
+
+/* Header styling */
+.vendor-profile h3 {
+  font-size: 4rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #333;
+  text-align: center;
+}
+
+/* Flex container for profile details */
+.profile-details {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Form styling */
+.profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Label styling for form fields */
+.profile-form label {
+  display: flex;
+  flex-direction: column;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #0e0e0e;
+}
+
+/* Input styling for form fields */
+.profile-form input {
+  padding: 10px;
+  font-size: 1.2rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-top: 5px;
+}
+
+/* Button styling for form actions */
+.profile-form button {
+  padding: 10px 20px;
+  width: 20%;
+  font-size: 1.2rem;
+  color: #fff;
+  background-color: #007bff; 
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  margin-top: 10px; 
+}
+
+/* Button hover effect */
+.profile-form button:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px); /* Slight lift effect on hover */
+}
+
+/* Button focus effect */
+.profile-form button:focus {
+  outline: 2px solid #0056b3;
+  outline-offset: 2px;
+}
+
+
+
+/* Display profile information */
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Profile information styling */
+.profile-info div {
+  font-size: 1.1rem;
+  color: #0a0a0a;
+  padding: 10px;
+  border: 1px solid #757373;
+  border-radius: 4px;
+}
+
+/* Image styling */
+.profile-info img {
+  max-width: 30%;
+  height: auto;
+  border-radius: 8px;
+}
+
+/* Edit button styling */
+.profile-info button {
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  color: #fff;
+  background-color: #007bff; 
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  align-self: start; 
+  margin-top: 10px; 
+}
+
+/* Edit button hover effect */
+.profile-info button:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px); /* Slight lift effect on hover */
+}
+
+/* Edit button focus effect */
+.profile-info button:focus {
+  outline: 2px solid #0056b3;
+  outline-offset: 2px;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+  .profile-form, .profile-info {
+    flex-direction: column; /* Ensure column layout on smaller screens */
+  }
+  .profile-info img {
+    max-width: 50%;
+    height: auto;
+    border-radius: 8px;
+  }
+}

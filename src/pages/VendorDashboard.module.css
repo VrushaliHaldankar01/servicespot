@@ -1,0 +1,185 @@
+/* VendorDashboard.module.css */
+
+.vd-vendor-dashboard {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.vd-dashboard-container {
+  display: flex;
+  flex: 1;
+}
+
+.vd-sidebar {
+  width: 250px;
+  background-color: #afb3b3;
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.vd-dashboard-section {
+  flex: 1;
+  padding: 20px;
+}
+
+.vd-vendor-catalogue {
+  font-size: bold;
+  text-align: center;
+}
+
+.vd-services-card-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 10px;
+}
+
+.vd-service-card {
+  background-color: lightgray;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  flex: 1 1 300px;
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+}
+
+.vd-service-card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  background-color: #9f9d9d;
+}
+
+.vd-service-name {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.vd-service-description {
+  font-size: 1.25rem;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.vd-service-price {
+  font-size: 1rem;
+  color: #040404;
+  font-weight: bold;
+}
+
+.vd-shadow-box-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  background-color: #dee2e6;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+}
+
+.vd-shadow-box-heading h3 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 0;
+  text-align: center;
+  color: #050505;
+}
+
+.vd-shadow-box-heading:hover {
+  background-color: #9c9c9c;
+}
+
+.vd-shadow-box-heading span {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.vd-vendor-catalogue ul,
+.vd-appointments-list ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.vd-vendor-catalogue li,
+.vd-appointments-list li {
+  padding: 10px;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.vd-vendor-catalogue h4 {
+  margin: 0;
+}
+
+.vd-appointments-overview,
+.vd-appointments-list,
+.vd-appointment-requests {
+  margin-bottom: 2rem;
+}
+
+.vd-appointments-overview {
+  margin-bottom: 2rem;
+}
+
+.vd-appointment-requests {
+  margin-top: 2rem;
+}
+
+.vd-highlighted-date {
+  background-color: #2ce04d;
+  border-radius: 80%;
+  color: black;
+}
+
+@media (max-width: 992px) {
+  .vd-dashboard-container {
+    flex-direction: column;
+  }
+
+  .vd-sidebar {
+    width: 100%;
+    box-shadow: none;
+  }
+
+  .vd-dashboard-menu button {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .vd-shadow-box-heading {
+    font-size: 1rem;
+  }
+
+  .vd-shadow-box-heading span {
+    font-size: 1.25rem;
+  }
+
+  .vd-vendor-catalogue li,
+  .vd-appointments-list li {
+    font-size: 0.875rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .vd-sidebar {
+    padding: 10px;
+  }
+
+  .vd-dashboard-menu button {
+    padding: 8px;
+    font-size: 0.8rem;
+  }
+
+  .vd-shadow-box-heading {
+    font-size: 0.875rem;
+  }
+
+  .vd-shadow-box-heading span {
+    font-size: 1rem;
+  }
+}

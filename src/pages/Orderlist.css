@@ -1,0 +1,37 @@
+.order-list {
+    padding: 20px;
+    max-width: 600px;
+    margin: auto;
+  }
+  
+  .order-list h3 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+  }
+  
+  .order-list ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .order-list li {
+    background: #f9f9f9;
+    margin: 5px 0;
+    padding: 10px;
+    border-radius: 4px;
+  }
+  
+  @media (max-width: 600px) {
+    .order-list {
+      padding: 10px;
+    }
+  
+    .order-list h3 {
+      font-size: 1.2em;
+    }
+  
+    .order-list li {
+      font-size: 0.9em;
+    }
+  }
+  

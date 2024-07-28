@@ -1,107 +1,99 @@
-/* src/components/Header.css */
-.header {
+/* Header.css */
+
+.header-wrapper .header {
   position: relative;
   z-index: 10;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #000;
+  padding: 10px 20px;
+  color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.header-wrapper .logo img {
+  height: 80px;
+  width: 80px;
+  margin-left: 15px;
+  margin-bottom: 2px;
+}
+
+.header-wrapper .nav {
+  display: flex;
+  align-items: center;
+}
+
+.header-wrapper .nav ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.header-wrapper .nav ul li {
+  margin-right: 20px;
+}
+
+.header-wrapper .nav ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: bolder;
+}
+
+.header-wrapper .user-profile img {
+  height: 40px;
+  width: 40px;
+}
+
+.header-wrapper .logout-button img {
+  height: 40px;
+  width: 40px;
+  background: none;
+  border-radius: 50%;
+}
+
+.header-wrapper .hamburger {
+  display: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .header-wrapper .nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
     background-color: #000;
-    padding: 10px 20px;
-    color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-
-  }
-  
-  .logo img {
-    height: 80px;
-    width: 80px;
-    margin-left: 15px;
-    margin-bottom:2px;
-  }
-  .nav {
-    display: flex;
-    align-items: center;
-  }
- 
-  .nav ul {
-    display: flex;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .nav ul li {
-    margin-right: 20px;
-  }
-  
-  .nav ul li a {
-    color: #fff;
-    text-decoration: none;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-weight: bolder;
-  }
-  .user-profile img {
-    height: 40px;
-    width: 40px;
-    /* border-radius: 50%;
-    border: 2px solid #fff; */
-  }
-  .logout-button img{
-    height: 40px;
-    width: 40px;
-    background: none;
-    border-radius: 50%;
+    width: 100%;
+    text-align: right;
+    flex-direction: column;
+    align-items: flex-start;
   }
 
-  .hamburger {
+  .header-wrapper .nav ul {
     display: none;
-    font-size: 24px;
-    cursor: pointer;
+    flex-direction: column;
+    width: 100%;
   }
-  
-  /* .logout-button {
-    background: none;
-    border: none;
-    color: #007bff;
-    cursor: pointer;
-    font-size: 1rem;
-  } */
 
-  /* Responsive Design */
-  @media (max-width: 768px) {
-    .nav {
-      position: absolute;
-      top: 100%; /* Adjust this according to your header height */
-      left: 0;
-      background-color: #000;
-      width: 100%; /* Adjust the width as needed */
-      text-align: right; /* Align text to the right */
-      flex-direction: column;
-      align-items: flex-start;
-    }
-
-    .nav ul {
-      display: none;
-      flex-direction: column;
-      width: 100%;
-      /* text-align: center; */
-    }
-  
-    .nav.open ul {
-      display: flex;
-    }
-  
-    .hamburger {
-      display: block;
-    }
-    .nav ul li {
-      margin: 10px 0;
-    }
-  
-    .nav ul li a {
-      display: block;
-      width: 100%;
-      text-align: right;
-      padding-right: 20px; /* Add some padding to the right */
-    }
+  .header-wrapper .nav.open ul {
+    display: flex;
   }
+
+  .header-wrapper .hamburger {
+    display: block;
+  }
+
+  .header-wrapper .nav ul li {
+    margin: 10px 0;
+  }
+
+  .header-wrapper .nav ul li a {
+    display: block;
+    width: 100%;
+    text-align: right;
+    padding-right: 20px;
+  }
+}

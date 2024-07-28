@@ -7,9 +7,9 @@ import '../css/CategoryPage.css';
 
 const CategoryPage = () => {
     const [categories, setCategories] = useState([]);
+    const [subCategories, setSubCategories] = useState([]);
+    const [filteredSubCategories, setFilteredSubCategories] = useState([]);
     const [expandedCategoryId, setExpandedCategoryId] = useState(null);
-    const [subCategoriesMap, setSubCategoriesMap] = useState({});
-    const [selectedSubCategory, setSelectedSubCategory] = useState(null);
     const [categoryContent, setCategoryContent] = useState(null);
 
     useEffect(() => {
@@ -24,26 +24,31 @@ const CategoryPage = () => {
         fetchCategories();
     }, []);
 
-    const handleCategoryClick = async (categoryId, categoryName) => {
-        if (expandedCategoryId === categoryId) {
-            setExpandedCategoryId(null);
-            return;
-        }
-
-        setExpandedCategoryId(categoryId);
-
-        if (!subCategoriesMap[categoryId]) {
+    useEffect(() => {
+        const fetchAllSubCategories = async () => {
             try {
-                const response = await axios.get(`http://localhost:4000/admin/fetchSubCategory?name=${categoryName}`);
-                setSubCategoriesMap(prevState => ({ ...prevState, [categoryId]: response.data }));
+                const response = await axios.get('http://localhost:4000/admin/fetchSubCategory');
+                setSubCategories(response.data);
+                setFilteredSubCategories(response.data);
             } catch (error) {
                 console.error('Error fetching subcategories:', error);
             }
+        };
+        fetchAllSubCategories();
+    }, []);
+
+    const handleCategoryClick = (categoryId) => {
+        if (categoryId === expandedCategoryId) {
+            // If the same category is clicked again, reset the filter
+            setExpandedCategoryId(null);
+            setFilteredSubCategories(subCategories);
+        } else {
+            setExpandedCategoryId(categoryId);
+            setFilteredSubCategories(subCategories.filter(subCategory => subCategory.category === categoryId));
         }
     };
 
     const handleSubCategoryClick = async (subCategory) => {
-        setSelectedSubCategory(subCategory);
         try {
             const response = await axios.get(`http://localhost:4000/admin/fetchPerticularSubCategory?name=${subCategory.name}`);
             setCategoryContent(response.data);
@@ -59,13 +64,19 @@ const CategoryPage = () => {
                 <CategorySidebar
                     categories={categories}
                     expandedCategoryId={expandedCategoryId}
-                    subCategoriesMap={subCategoriesMap}
                     handleCategoryClick={handleCategoryClick}
-                    handleSubCategoryClick={handleSubCategoryClick}
                 />
                 <div className="content">
-                    {selectedSubCategory && categoryContent && (
-                        <div>
+                    {filteredSubCategories.slice(0, 6).map(subCategory => (
+                        <div key={subCategory._id} className="subcategory-card">
+                            <img src={subCategory.subcategoryImage.length > 0 ? subCategory.subcategoryImage[0] : 'https://via.placeholder.com/150'} alt={subCategory.name} />
+                            <h3>{subCategory.name}</h3>
+                            <p>{subCategory.description}</p>
+                            <button onClick={() => handleSubCategoryClick(subCategory)}>View Details</button>
+                        </div>
+                    ))}
+                    {categoryContent && (
+                        <div className="category-content">
                             <h2>{categoryContent.title}</h2>
                             <p>{categoryContent.description}</p>
                         </div>

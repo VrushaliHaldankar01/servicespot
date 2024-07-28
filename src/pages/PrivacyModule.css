@@ -1,0 +1,30 @@
+/* privacy.css */
+
+.privacy-container {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .privacy-content {
+    line-height: 1.6;
+  }
+  
+  .privacy-content p {
+    font-size: 16px; 
+  }
+  
+  .privacy-content h4 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .privacy-content ul {
+    margin-bottom: 10px;
+  }
+  
+  @media (max-width: 768px) {
+    .privacy-content {
+      font-size: 14px; 
+    }
+  }
+  

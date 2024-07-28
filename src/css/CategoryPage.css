@@ -1,70 +1,85 @@
 .category-page {
     display: flex;
-}
-
-.sidebar {
-    width: 25%;
-    border-right: 1px solid #ccc;
-    padding: 1rem;
-}
-
-.category-item {
-    margin-bottom: 1rem;
-}
-
-.category-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0.5rem;
-    cursor: pointer;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-.category-image {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    object-fit: cover;
-}
-
-.category-info {
-    flex: 1;
-    margin-left: 1rem;
-}
-
-.category-name {
-    font-weight: bold;
-}
-
-.category-description {
-    font-size: 0.9rem;
-    color: gray;
-}
-
-.arrow {
-    font-size: 1.2rem;
-}
-
-.subcategories {
-    margin-left: 2rem;
-    margin-top: 0.5rem;
-}
-
-.subcategory-button {
-    display: block;
-    width: 100%;
-    background: none;
-    border: none;
-    padding: 0.5rem;
-    text-align: left;
-    cursor: pointer;
-    border-left: 2px solid #ccc;
-    margin-bottom: 0.5rem;
+    background: #f9f9f9;
+    margin-bottom: auto;
+    flex-wrap: wrap;
 }
 
 .content {
-    width: 75%;
-    padding: 1rem;
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    height: 250px;
+}
+
+.subcategory-card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: calc(33.333% - 20px); /* Ensures three cards per row */
+    min-height: 300px; /* Sets a minimum height to maintain uniformity */
+    padding: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.subcategory-card img {
+    width: 50%;
+    height: 50%;
+    object-fit: cover;
+    border-radius: 40%;
+    margin: 0 auto; /* Centers the image */
+}
+
+.subcategory-card h3 {
+    margin-top: 15px;
+    font-size: 1.2em;
+}
+
+.subcategory-card p {
+    color: #666;
+    font-size: 0.9em;
+    flex-grow: 1; /* Ensures the description takes up available space */
+}
+
+.subcategory-card button {
+    margin-top: 10px;
+    padding: 10px 15px;
+    background: #0e0e0f;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.subcategory-card button:hover {
+    background: #6f7274;
+}
+
+.category-content {
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%; /* Ensures the content takes full width */
+}
+
+@media (max-width: 768px) {
+    .category-page {
+        flex-direction: column; /* Stacks the sidebar and content vertically */
+    }
+
+    .sidebar {
+        width: 100%;
+        height: auto;
+        margin-bottom: 20px; /* Adds some space between the sidebar and content */
+    }
+
+    .subcategory-card {
+        width: 100%; /* Each card takes full width on smaller screens */
+    }
 }

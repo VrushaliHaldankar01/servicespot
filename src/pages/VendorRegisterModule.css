@@ -1,5 +1,6 @@
 .registration-box {
   background-color: #0f0f0f1b;
+  background: linear-gradient(135deg, #f0f7ff 0%, #d0e6f6 50%, #a1c4fd 100%);
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   /* max-width: 1200px; */
   width: 100%;

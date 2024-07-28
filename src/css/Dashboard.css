@@ -66,9 +66,11 @@
   color: #060606;
   text-decoration: none;
 }
+
 .section-header h3 {
   margin: 0;
   font-size: 24px;
+  text-align: left; /* Align to the left */
 }
 
 .section-header a {
@@ -79,11 +81,12 @@
 }
 
 /* Category List and Cards */
-.categories-container{
+.categories-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 }
+
 .category-list, .service-list {
   display: flex;
   flex-wrap: wrap;
@@ -94,14 +97,13 @@
   display: flex;
   flex-direction: column; /* Stack items vertically */
   align-items: center; /* Center items horizontally */
- 
- justify-content: center; 
- text-align: center;
- background: #fff;
+  justify-content: center;
+  text-align: center;
+  background: #fff;
   border: 1px solid #ddd;
   border-radius: 5px;
-  width: 150px;
-  height: auto;
+  width: 200px;
+  height: 250px;
   margin: 10px;
   padding: 15px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -113,10 +115,10 @@
 }
 
 .category-card .category-image {
-  border-radius: 50%;
+  border-radius: 10%;
   width: 70px;
   height: 70px;
-  overflow: hidden;
+  /* overflow: hidden; */
   margin-bottom: 10px; /* Adjusted margin */
   display: flex;
   align-items: center; /* Center image vertically */
@@ -127,8 +129,9 @@
   width: 100%;
   height: auto;
 }
+
 .category-image img {
-  border-radius: 50%;
+  border-radius: 10%;
   width: 80px; /* Adjust as needed */
   height: 80px; /* Adjust as needed */
 }
@@ -207,6 +210,7 @@
 
 .slick-slide .category-card {
   width: 90% !important;
+  height: 90% !important;
 }
 
 /* Responsive Design */

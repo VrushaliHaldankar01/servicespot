@@ -20,6 +20,7 @@ const VendorRegister = () => {
     businessNumber: '',
     businessCategory: '',
     businessSubcategory: '',
+    agreeTerms: false
   });
 
   const [file, setFile] = useState(null);
@@ -43,7 +44,7 @@ const VendorRegister = () => {
   ];
 
   const handleChange = (e) => {
-    const { name, value, files } = e.target;
+    const { name, value, type, checked, files } = e.target;
     if (files) {
       setFormData({
         ...formData,
@@ -53,7 +54,7 @@ const VendorRegister = () => {
     } else {
       setFormData({
         ...formData,
-        [name]: value,
+        [name]: type === 'checkbox' ? checked : value,
       });
     }
   };
@@ -124,36 +125,30 @@ const VendorRegister = () => {
       setErrors(validationErrors);
     } else {
       const data = new FormData();
+      data.append('firstName', formData.firstName);
+      data.append('lastName', formData.lastName);
       data.append('email', formData.email);
       data.append('password', formData.password);
-      data.append('phonenumber', formData.contactNumber);
-      data.append('isVendor', true);
-      data.append('businessname', formData.businessName);
-      data.append('businessdescription', formData.businessDescription);
+      data.append('businessName', formData.businessName);
+      data.append('businessDescription', formData.businessDescription);
       data.append('province', formData.province);
       data.append('city', formData.city);
-      data.append('pincode', formData.postalCode);
+      data.append('postalCode', formData.postalCode);
       data.append('businessNumber', formData.businessNumber);
       data.append('businessCategory', formData.businessCategory);
       data.append('businessSubcategory', formData.businessSubcategory);
-      data.append('businessImages', file); // Append the file here
+      data.append('businessImage', file); // Append the file here
 
       try {
         const response = await axios.post(
-          'http://localhost:4000/user/register',
+          'http://localhost:4000/vendor/register',
           data
-          // {
-          //   headers: {
-          //     'Content-Type': 'multipart/form-data',
-          //   },
-          // }
         );
         console.log(response.data);
         navigate('/Login');
-        // Handle successful registration (e.g., redirect, show success message)
       } catch (error) {
         console.log('Error', error);
-        // Handle error (e.g., show error message)
+        setErrors({ general: 'An error occurred during registration' });
       }
     }
   };
@@ -161,7 +156,6 @@ const VendorRegister = () => {
   return (
     <div>
       <Header />
-
       <div className='container mt-4 mb-4' style={{ maxWidth: '700px' }}>
         <div className='registration-box p-4 rounded'>
           <form onSubmit={handleSubmit} className='p-4 rounded'>
@@ -194,7 +188,6 @@ const VendorRegister = () => {
                 )}
               </div>
             </div>
-
             <div className='form-group mb-3'>
               <label>Email</label>
               <input
@@ -203,7 +196,6 @@ const VendorRegister = () => {
                 name='email'
                 value={formData.email}
                 onChange={handleChange}
-                
               />
               {errors.email && <p className='text-danger'>{errors.email}</p>}
             </div>
@@ -215,7 +207,6 @@ const VendorRegister = () => {
                 name='password'
                 value={formData.password}
                 onChange={handleChange}
-                
               />
               {errors.password && (
                 <p className='text-danger'>{errors.password}</p>
@@ -231,7 +222,6 @@ const VendorRegister = () => {
                 name='businessName'
                 value={formData.businessName}
                 onChange={handleChange}
-                
               />
               {errors.businessName && (
                 <p className='text-danger'>{errors.businessName}</p>
@@ -244,7 +234,6 @@ const VendorRegister = () => {
                 name='businessDescription'
                 value={formData.businessDescription}
                 onChange={handleChange}
-                
               />
               {errors.businessDescription && (
                 <p className='text-danger'>{errors.businessDescription}</p>
@@ -258,7 +247,6 @@ const VendorRegister = () => {
                   name='province'
                   value={formData.province}
                   onChange={handleChange}
-                  
                 >
                   <option value=''>Select Province</option>
                   {provinces.map((province) => (
@@ -279,7 +267,6 @@ const VendorRegister = () => {
                   name='city'
                   value={formData.city}
                   onChange={handleChange}
-                  
                 />
                 {errors.city && <p className='text-danger'>{errors.city}</p>}
               </div>
@@ -291,14 +278,12 @@ const VendorRegister = () => {
                   name='postalCode'
                   value={formData.postalCode}
                   onChange={handleChange}
-                  
                 />
                 {errors.postalCode && (
                   <p className='text-danger'>{errors.postalCode}</p>
                 )}
               </div>
             </div>
-
             <div className='form-group mb-3'>
               <label>Business Number</label>
               <input
@@ -307,7 +292,6 @@ const VendorRegister = () => {
                 name='businessNumber'
                 value={formData.businessNumber}
                 onChange={handleChange}
-                
               />
               {errors.businessNumber && (
                 <p className='text-danger'>{errors.businessNumber}</p>
@@ -320,13 +304,11 @@ const VendorRegister = () => {
                 name='businessCategory'
                 value={formData.businessCategory}
                 onChange={handleChange}
-                
               >
                 <option value=''>Select Category</option>
                 <option value='retail'>Retail</option>
                 <option value='service'>Service</option>
                 <option value='manufacturing'>Manufacturing</option>
-                {/* Add more options as needed */}
               </select>
               {errors.businessCategory && (
                 <p className='text-danger'>{errors.businessCategory}</p>
@@ -339,21 +321,18 @@ const VendorRegister = () => {
                 name='businessSubcategory'
                 value={formData.businessSubcategory}
                 onChange={handleChange}
-                
               >
                 <option value=''>Select Subcategory</option>
                 {formData.businessCategory === 'retail' && (
                   <>
                     <option value='clothing'>Clothing</option>
                     <option value='electronics'>Electronics</option>
-                    {/* Add more options as needed */}
                   </>
                 )}
                 {formData.businessCategory === 'service' && (
                   <>
                     <option value='consulting'>Consulting</option>
                     <option value='cleaning'>Cleaning</option>
-                    {/* Add more options as needed */}
                   </>
                 )}
                 {formData.businessCategory === 'manufacturing' && (
@@ -374,7 +353,6 @@ const VendorRegister = () => {
                 className='form-control'
                 name='businessImage'
                 onChange={handleChange}
-                
               />
               {errors.businessImage && (
                 <p className='text-danger'>{errors.businessImage}</p>
@@ -387,7 +365,6 @@ const VendorRegister = () => {
                 name='agreeTerms'
                 checked={formData.agreeTerms}
                 onChange={handleChange}
-                
               />
               <label className='form-check-label'>
                 I understand and agree to Terms & Conditions
@@ -396,7 +373,9 @@ const VendorRegister = () => {
                 <p className='text-danger'>{errors.agreeTerms}</p>
               )}
             </div>
-
+            {errors.general && (
+              <p className='text-danger text-center'>{errors.general}</p>
+            )}
             <div className='text-center'>
               <button
                 type='submit'

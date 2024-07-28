@@ -39,6 +39,7 @@ const Dashboard = () => {
                 setLoading(false);
             } catch (error) {
                 console.error('Error fetching data:', error);
+                alert('Error fetching data. Please try again later.');
                 setLoading(false);
             }
         };
@@ -46,17 +47,17 @@ const Dashboard = () => {
     }, []);
 
     const renderServiceCards = (services) => {
-        return services.slice(0, 3).map((service) => (
-            <div className="service-card" key={service.id}>
+        return services.slice(0, 3).map(({ category }) => (
+            <div className="service-card" key={category._id}>
                 <div className="service-image">
                     <img
-                        src={service.image ? service.image : "https://via.placeholder.com/150"}
-                        alt={service.title}
+                        src={category.categoryImage.length > 0 ? category.categoryImage[0] : "https://via.placeholder.com/150"}
+                        alt={category.name}
                     />
                 </div>
                 <div className="service-details">
-                    <h4>{service.title}</h4>
-                    <p>{service.description}</p>
+                    <h4>{category.name}</h4>
+                    <p>{category.description}</p>
                 </div>
             </div>
         ));
@@ -144,12 +145,16 @@ const Dashboard = () => {
                         {renderCategoryCards(categories.slice(5))}
                     </Slider>
                 )}
-                <h3>Trending Services</h3>
+                <div className="section-header">
+                    <h3>Trending Services</h3>
+                </div>
                 <div className="service-list">
                     {renderServiceCards(trendingServices)}
                 </div>
-
-                <h3>Popular Services</h3>
+                
+                <div className="section-header">
+                    <h3>Popular Services</h3>
+                </div>
                 <div className="service-list">
                     {renderServiceCards(popularServices)}
                 </div>
