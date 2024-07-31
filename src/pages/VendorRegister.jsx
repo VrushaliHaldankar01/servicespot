@@ -96,10 +96,11 @@ const VendorRegister = () => {
     const { name, value, type, checked, files } = e.target;
 
     if (files) {
-      setFormData({
-        ...formData,
-        [name]: files[0],
-      });
+      // setFormData({
+      //   ...formData,
+      //   [name]: value,
+      //   // [name]: files[0],
+      // });
       setFile(files[0]); // Handle single file uploads
     } else {
       setFormData({
@@ -179,31 +180,46 @@ const VendorRegister = () => {
       data.append('lastName', formData.lastName);
       data.append('email', formData.email);
       data.append('password', formData.password);
-      data.append('businessName', formData.businessName);
-      data.append('businessDescription', formData.businessDescription);
+      data.append('phonenumber', '6765456787');
+      data.append('isVendor', 'true');
+      data.append('businessname', formData.businessName);
+      data.append('businessdescription', formData.businessDescription);
       data.append('province', formData.province);
       data.append('city', formData.city);
-      data.append('postalCode', formData.postalCode);
-      data.append('businessNumber', formData.businessNumber);
-      data.append('businessCategory', formData.businessCategory);
-      data.append('businessSubcategory', formData.businessSubcategory);
-      //if (file) data.append('businessImage', file); // Append file if exists
+      data.append('postalcode', formData.postalCode);
+      data.append('businessnumber', formData.businessNumber);
+      data.append('category', formData.businessCategory);
+      data.append('subcategory', formData.businessSubcategory);
+      data.append('isActive', 'true');
+      if (file) data.append('businessImages', file);
 
-      if (file) data.append('businessImage', file[0]); // Append file if exists
-
-      // Log FormData
-      for (let pair of data.entries()) {
-        console.log(`${pair[0]}: ${pair[1]}`);
+      // Log FormData entries
+      for (let [key, value] of data.entries()) {
+        if (value instanceof File) {
+          console.log(`${key}: ${value.name}`); // Log file name
+        } else {
+          console.log(`${key}: ${value}`);
+        }
       }
+
       try {
+        console.log('rrr1');
         const response = await axios.post(
-          'http://localhost:4000/vendor/register',
-          data
+          'http://localhost:4000/user/register',
+          data,
+          {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          }
         );
-        console.log(response.data);
+        console.log('rrr', response.error);
         navigate('/Login');
       } catch (error) {
-        console.error('Error during registration:', error);
+        console.error(
+          'Error during registration:',
+          error.response ? error.response.data : error.message
+        );
         setErrors({ general: 'An error occurred during registration' });
       }
     }
@@ -406,7 +422,7 @@ const VendorRegister = () => {
               <input
                 type='file'
                 className='form-control'
-                name='businessImage'
+                name='businessImages'
                 onChange={handleChange}
               />
               {errors.businessImage && (
