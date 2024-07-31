@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './VendorRegisterModule.css';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate } from 'react-router-dom';
 
 const VendorRegister = () => {
   const [formData, setFormData] = useState({
@@ -20,12 +20,15 @@ const VendorRegister = () => {
     businessNumber: '',
     businessCategory: '',
     businessSubcategory: '',
-    agreeTerms: false
+    agreeTerms: false,
   });
 
   const [file, setFile] = useState(null);
   const [errors, setErrors] = useState({});
-  const navigate = useNavigate(); 
+  const [categories, setCategories] = useState([]);
+  const [subcategories, setSubcategories] = useState([]);
+
+  const navigate = useNavigate();
 
   const provinces = [
     'Alberta',
@@ -43,14 +46,61 @@ const VendorRegister = () => {
     'Yukon',
   ];
 
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await axios.get(
+          'http://localhost:4000/admin/fetchCategory'
+        );
+        setCategories(response.data);
+        console.log('Fetched Categories:', response.data);
+      } catch (error) {
+        console.error('Error fetching categories:', error);
+      }
+    };
+
+    fetchCategories();
+  }, []);
+  useEffect(() => {
+    const fetchSubcategories = async () => {
+      if (formData.businessCategory) {
+        const selectedCategory = categories.find(
+          (category) => category._id === formData.businessCategory
+        );
+
+        if (selectedCategory) {
+          try {
+            const response = await axios.get(
+              `http://localhost:4000/admin/fetchSubCategory?name=${selectedCategory.name}`
+            );
+            console.log('Fetched Subcategories:', response.data);
+
+            // Reset subcategories based on response
+            setSubcategories(response.data.length ? response.data : []);
+          } catch (error) {
+            console.error('Error fetching subcategories:', error);
+            setSubcategories([]);
+          }
+        } else {
+          setSubcategories([]);
+        }
+      } else {
+        setSubcategories([]); // Reset if no category is selected
+      }
+    };
+
+    fetchSubcategories();
+  }, [formData.businessCategory, categories]);
+
   const handleChange = (e) => {
     const { name, value, type, checked, files } = e.target;
+
     if (files) {
       setFormData({
         ...formData,
-        [name]: value,
+        [name]: files[0],
       });
-      setFile(files[0]); // Only handle single file uploads for simplicity
+      setFile(files[0]); // Handle single file uploads
     } else {
       setFormData({
         ...formData,
@@ -137,8 +187,14 @@ const VendorRegister = () => {
       data.append('businessNumber', formData.businessNumber);
       data.append('businessCategory', formData.businessCategory);
       data.append('businessSubcategory', formData.businessSubcategory);
-      data.append('businessImage', file); // Append the file here
+      //if (file) data.append('businessImage', file); // Append file if exists
 
+      if (file) data.append('businessImage', file[0]); // Append file if exists
+
+      // Log FormData
+      for (let pair of data.entries()) {
+        console.log(`${pair[0]}: ${pair[1]}`);
+      }
       try {
         const response = await axios.post(
           'http://localhost:4000/vendor/register',
@@ -147,7 +203,7 @@ const VendorRegister = () => {
         console.log(response.data);
         navigate('/Login');
       } catch (error) {
-        console.log('Error', error);
+        console.error('Error during registration:', error);
         setErrors({ general: 'An error occurred during registration' });
       }
     }
@@ -248,7 +304,7 @@ const VendorRegister = () => {
                   value={formData.province}
                   onChange={handleChange}
                 >
-                  <option value=''>Select Province</option>
+                  <option value=''>Select a province</option>
                   {provinces.map((province) => (
                     <option key={province} value={province}>
                       {province}
@@ -259,7 +315,7 @@ const VendorRegister = () => {
                   <p className='text-danger'>{errors.province}</p>
                 )}
               </div>
-              <div className='col-sm-4'>
+              <div className='col-sm-7 mb-3'>
                 <label>City</label>
                 <input
                   type='text'
@@ -270,19 +326,19 @@ const VendorRegister = () => {
                 />
                 {errors.city && <p className='text-danger'>{errors.city}</p>}
               </div>
-              <div className='col-sm-3'>
-                <label>Postal Code</label>
-                <input
-                  type='text'
-                  className='form-control'
-                  name='postalCode'
-                  value={formData.postalCode}
-                  onChange={handleChange}
-                />
-                {errors.postalCode && (
-                  <p className='text-danger'>{errors.postalCode}</p>
-                )}
-              </div>
+            </div>
+            <div className='form-group mb-3'>
+              <label>Postal Code</label>
+              <input
+                type='text'
+                className='form-control'
+                name='postalCode'
+                value={formData.postalCode}
+                onChange={handleChange}
+              />
+              {errors.postalCode && (
+                <p className='text-danger'>{errors.postalCode}</p>
+              )}
             </div>
             <div className='form-group mb-3'>
               <label>Business Number</label>
@@ -297,6 +353,7 @@ const VendorRegister = () => {
                 <p className='text-danger'>{errors.businessNumber}</p>
               )}
             </div>
+
             <div className='form-group mb-3'>
               <label>Business Category</label>
               <select
@@ -304,11 +361,14 @@ const VendorRegister = () => {
                 name='businessCategory'
                 value={formData.businessCategory}
                 onChange={handleChange}
+                style={{ color: 'black', backgroundColor: 'white' }}
               >
-                <option value=''>Select Category</option>
-                <option value='retail'>Retail</option>
-                <option value='service'>Service</option>
-                <option value='manufacturing'>Manufacturing</option>
+                <option value=''>Select a category</option>
+                {categories.map((category) => (
+                  <option key={category._id} value={category._id}>
+                    {category.name}
+                  </option>
+                ))}
               </select>
               {errors.businessCategory && (
                 <p className='text-danger'>{errors.businessCategory}</p>
@@ -321,31 +381,26 @@ const VendorRegister = () => {
                 name='businessSubcategory'
                 value={formData.businessSubcategory}
                 onChange={handleChange}
+                style={{ color: 'black' }}
               >
-                <option value=''>Select Subcategory</option>
-                {formData.businessCategory === 'retail' && (
-                  <>
-                    <option value='clothing'>Clothing</option>
-                    <option value='electronics'>Electronics</option>
-                  </>
-                )}
-                {formData.businessCategory === 'service' && (
-                  <>
-                    <option value='consulting'>Consulting</option>
-                    <option value='cleaning'>Cleaning</option>
-                  </>
-                )}
-                {formData.businessCategory === 'manufacturing' && (
-                  <>
-                    <option value='textiles'>Textiles</option>
-                    <option value='machinery'>Machinery</option>
-                  </>
+                <option value=''>Select a subcategory</option>
+                {subcategories.length > 0 ? (
+                  subcategories.map((subcategory) => (
+                    <option key={subcategory._id} value={subcategory._id}>
+                      {subcategory.name}
+                    </option>
+                  ))
+                ) : (
+                  <option value='' disabled>
+                    No subcategories found
+                  </option>
                 )}
               </select>
               {errors.businessSubcategory && (
                 <p className='text-danger'>{errors.businessSubcategory}</p>
               )}
             </div>
+
             <div className='form-group mb-3'>
               <label>Business Image</label>
               <input
@@ -358,37 +413,24 @@ const VendorRegister = () => {
                 <p className='text-danger'>{errors.businessImage}</p>
               )}
             </div>
-            <div className='form-check mb-4'>
+            <div className='form-group mb-3'>
               <input
                 type='checkbox'
-                className='form-check-input'
                 name='agreeTerms'
                 checked={formData.agreeTerms}
                 onChange={handleChange}
               />
-              <label className='form-check-label'>
-                I understand and agree to Terms & Conditions
+              <label className='ms-2'>
+                I agree to the terms and conditions
               </label>
               {errors.agreeTerms && (
                 <p className='text-danger'>{errors.agreeTerms}</p>
               )}
             </div>
-            {errors.general && (
-              <p className='text-danger text-center'>{errors.general}</p>
-            )}
-            <div className='text-center'>
-              <button
-                type='submit'
-                className='btn btn-dark submitbutton rounded-pill'
-              >
-                Submit
-              </button>
-            </div>
-            <div className='text-center mt-3'>
-              <p>
-                Already have an account? <a href='/Login'>Sign in</a>
-              </p>
-            </div>
+            {errors.general && <p className='text-danger'>{errors.general}</p>}
+            <button type='submit' className='btn btn-primary'>
+              Register
+            </button>
           </form>
         </div>
       </div>
