@@ -1,0 +1,172 @@
+.vendorDashboard {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.dashboardContainer {
+  display: flex;
+  flex: 1;
+}
+
+.vendorCatalogue {
+  font-size: bold;
+  text-align: center;
+}
+
+.sidebar {
+  width: 250px;
+  background-color: #afb3b3;
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.dashboardMenu button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  background-color: #343a40;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  text-align: center;
+  cursor: pointer;
+  font-size: 1.5rem;
+}
+
+.dashboardMenu button:hover {
+  background-color: #6b88a5;
+}
+
+.dashboardSection {
+  flex: 1;
+  padding: 20px;
+}
+
+.shadowBoxHeading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  background-color: #dee2e6;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+}
+
+.shadowBoxHeading h3 {
+  font-size: 2rem; 
+  font-weight: bold; 
+  margin: 0; 
+  text-align: center;
+  color: #050505; 
+}
+
+.shadowBoxHeading:hover {
+  background-color: #9c9c9c;
+}
+
+.shadowBoxHeading span {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.vendorCatalogue ul,
+.appointmentsList ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.vendorCatalogue li,
+.appointmentsList li {
+  padding: 10px;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.vendorCatalogue h4 {
+  margin: 0;
+}
+
+.appointmentsOverview,
+.appointmentsList,
+.appointmentRequests {
+  margin-bottom: 2rem;
+}
+
+.appointmentsOverview {
+  margin-bottom: 2rem;
+}
+
+.appointmentRequests {
+  margin-top: 2rem;
+}
+
+.highlightedDate {
+  background-color: #2ce04d; /* Yellow background for highlighted dates */
+  border-radius: 80%;
+  color: black;
+}
+
+/* Style for the card container */
+
+.servicesCardContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 10px;
+}
+
+/* Each individual service card */
+.serviceCard {
+  background-color: lightgray;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  flex: 1 1 300px; 
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Service name and description */
+.serviceName {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.serviceDescription {
+  font-size: 1rem;
+  margin-bottom: 20px;
+}
+
+.servicePrice {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.dashboard {
+  flex: 1;
+  padding: 20px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ordersList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

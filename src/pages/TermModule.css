@@ -1,0 +1,58 @@
+/* TermModule.css */
+
+/* Reduce container size */
+.terms-page .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  /* Modify padding inside the box */
+  .terms-page .p-4 {
+    padding: 20px;
+  }
+  
+  /* Adjust rounded box styling */
+  .terms-page .rounded {
+    border-radius: 8px;
+    background-color: #f8f9fa;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Smaller header font size */
+  .terms-page h1 {
+    font-size: 3rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #131313;
+    background-color: #c1c6c6ac;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Smaller section title font size */
+  .terms-page h4 {
+    font-size: 2rem;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    color: #0a0a0a;
+  }
+  
+  /* Adjust paragraph styling */
+  .terms-page .terms-header p {
+    font-size: 1.5rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    color: #212529;
+  }
+  
+  /* Increase font size for p in mobile view */
+  @media (max-width: 768px) {
+    .terms-page .container p {
+      font-size: 1.5rem; /* Increase font size for mobile view */
+      line-height: 1.8; /* Slightly increase line height for better readability */
+    }
+  }
+  
