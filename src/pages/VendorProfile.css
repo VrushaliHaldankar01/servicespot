@@ -1,91 +1,140 @@
+/* VendorProfile.css */
 
+/* Container for the entire profile section */
 .vendor-profile {
-    width: 90%;
-    max-width: 800px;
-    margin: 30px auto;
-    padding: 20px;
+  padding: 20px;
+  background: linear-gradient(135deg, #8ec5fc 0%, #e0c3fc 100%);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 1000px;
+  margin: auto;
+}
+
+/* Header styling */
+.vendor-profile h3 {
+  font-size: 4rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #333;
+  text-align: center;
+}
+
+/* Flex container for profile details */
+.profile-details {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Form styling */
+.profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Label styling for form fields */
+.profile-form label {
+  display: flex;
+  flex-direction: column;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #0e0e0e;
+}
+
+/* Input styling for form fields */
+.profile-form input {
+  padding: 10px;
+  font-size: 1.2rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-top: 5px;
+}
+
+/* Button styling for form actions */
+.profile-form button {
+  padding: 10px 20px;
+  width: 20%;
+  font-size: 1.2rem;
+  color: #fff;
+  background-color: #007bff; 
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  margin-top: 10px; 
+}
+
+/* Button hover effect */
+.profile-form button:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px); /* Slight lift effect on hover */
+}
+
+/* Button focus effect */
+.profile-form button:focus {
+  outline: 2px solid #0056b3;
+  outline-offset: 2px;
+}
+
+
+
+/* Display profile information */
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Profile information styling */
+.profile-info div {
+  font-size: 1.1rem;
+  color: #0a0a0a;
+  padding: 10px;
+  border: 1px solid #757373;
+  border-radius: 4px;
+}
+
+/* Image styling */
+.profile-info img {
+  max-width: 30%;
+  height: auto;
+  border-radius: 8px;
+}
+
+/* Edit button styling */
+.profile-info button {
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  color: #fff;
+  background-color: #007bff; 
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  align-self: start; 
+  margin-top: 10px; 
+}
+
+/* Edit button hover effect */
+.profile-info button:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px); /* Slight lift effect on hover */
+}
+
+/* Edit button focus effect */
+.profile-info button:focus {
+  outline: 2px solid #0056b3;
+  outline-offset: 2px;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+  .profile-form, .profile-info {
+    flex-direction: column; /* Ensure column layout on smaller screens */
+  }
+  .profile-info img {
+    max-width: 50%;
+    height: auto;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    background-color: #ffffff;
   }
-  
-  /* Heading style */
-  .vendor-profile h3 {
-    margin-bottom: 20px;
-    font-size: 24px;
-    color: #333333;
-    text-align: center;
-  }
-  
-  /* Container for profile details */
-  .profile-details {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  /* Styles for the profile form and info sections */
-  .profile-info, .profile-form {
-    margin-bottom: 20px;
-  }
-  
-  /* Form label styles */
-  .profile-form label {
-    display: block;
-    margin-bottom: 15px;
-    font-weight: bold;
-    color: #555555;
-  }
-  
-  /* Input field styles */
-  .profile-form input {
-    width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    border: 1px solid #dddddd;
-    border-radius: 5px;
-    box-sizing: border-box;
-  }
-  
-  /* Error message styles */
-  .error {
-    color: #e74c3c;
-    font-size: 0.9em;
-    margin-top: 5px;
-    display: block;
-  }
-  
-  /* Profile info paragraph styles */
-  .profile-info p {
-    margin-bottom: 15px;
-    font-size: 16px;
-    color: #444444;
-  }
-  
-  /* Button styles */
-  .profile-form button, .profile-info button {
-    padding: 10px 15px;
-    margin-right: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    color: #ffffff;
-    background-color: #007bff;
-    transition: background-color 0.3s, transform 0.2s;
-  }
-  
-  .profile-form button:hover, .profile-info button:hover {
-    background-color: #0056b3;
-    transform: scale(1.05);
-  }
-  
-  /* Button for cancel action with different color */
-  .profile-form button:nth-of-type(2) {
-    background-color: #6c757d;
-  }
-  
-  .profile-form button:nth-of-type(2):hover {
-    background-color: #5a6268;
-    transform: scale(1.05);
-  }
-  
+}

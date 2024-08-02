@@ -1,4 +1,6 @@
-.footer {
+/* Footer.css */
+
+.footer-wrapper .footer {
   background-color: #000;
   color: #fff;
   padding: 20px;
@@ -7,13 +9,13 @@
   align-items: center;
 }
 
-.footer-info {
+.footer-wrapper .footer-info {
   text-align: left;
-  flex:1;
+  flex: 1;
   min-width: 200px;
 }
 
-.footer-links{
+.footer-wrapper .footer-links {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-end;
@@ -21,25 +23,26 @@
   min-width: 200px;
 }
 
-.footer-links a {
+.footer-wrapper .footer-links a {
   color: #fff;
   margin-left: 20px;
   text-decoration: none;
 }
+
 @media (max-width: 768px) {
-  .footer {
+  .footer-wrapper .footer {
     flex-direction: column;
     text-align: center;
   }
 
-  .footer-info,
-  .footer-links {
+  .footer-wrapper .footer-info,
+  .footer-wrapper .footer-links {
     margin-bottom: 10px;
     flex: none;
     text-align: center;
   }
 
-  .footer-links a {
+  .footer-wrapper .footer-links a {
     margin: 5px 10px;
   }
 }

@@ -4,7 +4,7 @@ import './UserRegisterModule.css';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import axios from 'axios'; // Import Axios
-import { useNavigate } from 'react-router-dom'; 
+import { Navigate } from 'react-router-dom';
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -14,11 +14,12 @@ const Login = () => {
 
   const [error, setError] = useState('');
   const [errors, setErrors] = useState({}); 
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: value,
+      [name]: value
     });
   };
   const validate = () => {
@@ -42,31 +43,31 @@ const Login = () => {
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
     } else {
-      // Handle form submission logic here
-      console.log(formData);
-    }
     try {
       const response = await axios.post('http://localhost:4000/user/login', {
         email: formData.email,
         password: formData.password,
       });
-      console.log('rsponse', response);
+      localStorage.setItem('user', JSON.stringify(response.data.user));
+      localStorage.setItem('email', response.data.user.email); // Store email in local storage
       localStorage.setItem('token', response.data.token);
       setError('');
+      setIsLoggedIn(true);
     } catch (error) {
       console.log('error', error.response.data);
-      setError(
-        error.response.data.error ||
-          'An unexpected error occurred. Please try again.'
-      );
+      setError(error.response.data.error ||'An unexpected error occurred. Please try again.');
       // setError(error.response.data);
     }
+  }
   };
+  if (isLoggedIn) {
+    return <Navigate to="/Dashboard" replace/>;
+  }
 
   return (
-    <div>
+    <div className="d-flex flex-column min-vh-100">
       <Header />
-      <div className='container mt-4 mb-4' style={{ maxWidth: '700px' }}>
+      <div className='container mt-4 mb-4 flex-grow-1' style={{ maxWidth: '700px' }}>
         <div className='registration-box p-4 rounded'>
           <form onSubmit={handleSubmit} className='p-4 rounded'>
             <h3>Login</h3>
@@ -78,9 +79,8 @@ const Login = () => {
                 name='email'
                 value={formData.email}
                 onChange={handleChange}
-                
               />
-                         {errors.email && <p className='text-danger'>{errors.email}</p>}
+              {errors.email && <p className='text-danger'>{errors.email}</p>}
 
             </div>
             <div className='form-group mb-3'>
@@ -107,7 +107,7 @@ const Login = () => {
 
             <div className='text-center mt-3'>
               <p>
-                Don't have an account? <a href='/UserRegister'>Sign up</a>
+                Don't have an account? <a href='/UserRegister'>Sign Up</a>
               </p>
             </div>
           </form>

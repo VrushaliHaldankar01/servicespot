@@ -5,7 +5,7 @@ const VendorCatalogue = () => {
 
   useEffect(() => {
     // Fetch data from the backend
-    fetch('http://localhost:5000/api/services')
+    fetch('http://localhost:4000/api/services')
       .then(response => response.json())
       .then(data => setServices(data))
       .catch(error => console.error('Error fetching services:', error));

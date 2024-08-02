@@ -9,11 +9,17 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.7.2",
     "bootstrap": "^5.3.3",
+    "calender": "^1.0.3",
+    "nodemon": "^3.1.4",
     "react": "^18.3.1",
+    "react-calendar": "^5.0.0",
     "react-dom": "^18.3.1",
     "react-router": "^6.23.1",
     "react-router-dom": "^6.23.1",
     "react-scripts": "5.0.1",
+    "react-select": "^5.8.0",
+    "react-slick": "^0.30.2",
+    "slick-carousel": "^1.8.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -39,5 +45,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "description": "<<<<<<< HEAD\r # servicespot\r Where every need meets a solution:- Vendor connects user\r =======\r # Getting Started with Create React App",
+  "main": "index.js",
+  "author": "",
+  "license": "ISC"
 }
