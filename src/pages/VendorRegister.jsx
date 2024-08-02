@@ -447,6 +447,11 @@ const VendorRegister = () => {
             <button type='submit' className='btn btn-primary'>
               Register
             </button>
+            <div className='text-center mt-3'>
+              <p>
+                Already have an account? <a href='/Login'>Sign in</a>
+              </p>
+            </div>
           </form>
         </div>
       </div>

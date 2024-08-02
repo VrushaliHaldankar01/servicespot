@@ -6,20 +6,25 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isVendor, setIsVendor] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const user = localStorage.getItem("user");
-    setIsLoggedIn(!!user); // Convert user to boolean
+    const role = localStorage.getItem('role');
+    setIsLoggedIn(!!localStorage.getItem("user"));
+    setIsVendor(role === 'vendor');
   }, []);
 
   const toggleMenu = () => {
-    setMenuOpen(prevState => !prevState); // Simplify state toggle
+    setMenuOpen(prevState => !prevState);
   };
 
   const handleLogout = () => {
     localStorage.removeItem('user');
+    localStorage.removeItem('role');
+    localStorage.removeItem('token');
     setIsLoggedIn(false);
+    setIsVendor(false);
     navigate('/login');
   };
 
@@ -31,23 +36,34 @@ function Header() {
         </div>
         <nav className={`nav ${menuOpen ? 'open' : ''}`}>
           <ul>
+            {!isVendor && (
+            <>
             <li><Link to="/">Home</Link></li>
             <li><Link to="/About">About Us</Link></li>
-            <li><Link to="/VendorDashboard">Vendor</Link></li>
-            {!isLoggedIn && <li><Link to="/VendorRegister">Become a Vendor</Link></li>}
-            {isLoggedIn ? (
+            </>
+          )}
+            {isVendor ? (
+              <>
+                <li><Link to="/VendorDashboard">Vendor Profile</Link></li>
+              </>
+            ) : isLoggedIn ? (
               <>
                 <li><Link to="/Profile">My Profile</Link></li>
-                <li>
-                  <button onClick={handleLogout} className="logout-button">
-                    <img src="/images/exit.png" alt="Logout" />
-                  </button>
-                </li>
               </>
             ) : (
-              <div className="user-profile">
-                <Link to="/Login"><img src="/images/add-user.png" alt="User" /></Link>
-              </div>
+              <>
+                <li><Link to="/VendorRegister">Become a Vendor</Link></li>
+                <div className="user-profile">
+                  <Link to="/Login"><img src="/images/add-user.png" alt="User" /></Link>
+                </div>
+              </>
+            )}
+            {isLoggedIn && (
+              <li>
+                <button onClick={handleLogout} className="logout-button">
+                  <img src="/images/exit.png" alt="Logout" />
+                </button>
+              </li>
             )}
           </ul>
         </nav>

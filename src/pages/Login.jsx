@@ -51,17 +51,22 @@ const Login = () => {
       localStorage.setItem('user', JSON.stringify(response.data.user));
       localStorage.setItem('email', response.data.user.email); // Store email in local storage
       localStorage.setItem('token', response.data.token);
+      localStorage.setItem('role', response.data.user.role); // Store role in local storage
       setError('');
       setIsLoggedIn(true);
     } catch (error) {
       console.log('error', error.response.data);
-      setError(error.response.data.error ||'An unexpected error occurred. Please try again.');
-      // setError(error.response.data);
+      setError(error.response.data.error || 'An unexpected error occurred. Please try again.');
     }
   }
   };
   if (isLoggedIn) {
-    return <Navigate to="/Dashboard" replace/>;
+    const role = localStorage.getItem('role');
+    if (role === 'vendor') {
+      return <Navigate to="/VendorDashboard" replace />;
+    } else {
+      return <Navigate to="/Dashboard" replace />;
+    }
   }
 
   return (
@@ -81,7 +86,6 @@ const Login = () => {
                 onChange={handleChange}
               />
               {errors.email && <p className='text-danger'>{errors.email}</p>}
-
             </div>
             <div className='form-group mb-3'>
               <label>Password</label>
@@ -91,9 +95,8 @@ const Login = () => {
                 name='password'
                 value={formData.password}
                 onChange={handleChange}
-                
               />
-           {errors.password && <p className='text-danger'>{errors.password}</p>}
+              {errors.password && <p className='text-danger'>{errors.password}</p>}
             </div>
             <div className='text-center'>
               <button
@@ -104,7 +107,6 @@ const Login = () => {
               </button>
             </div>
             {error && <div className='alert alert-danger mt-3'>{error}</div>}
-
             <div className='text-center mt-3'>
               <p>
                 Don't have an account? <a href='/UserRegister'>Sign Up</a>

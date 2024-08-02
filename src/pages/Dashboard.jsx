@@ -142,7 +142,7 @@ const Dashboard = () => {
                 </div>
                 {categories.length > 5 && (
                     <Slider {...settings}>
-                        {renderCategoryCards(categories.slice(5))}
+                        {renderCategoryCards(categories)}
                     </Slider>
                 )}
                 <div className="section-header">
