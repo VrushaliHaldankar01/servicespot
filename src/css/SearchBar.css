@@ -1,22 +1,52 @@
-/* src/components/SearchBar.css */
+/* SearchBar.css */
+
 .search-container {
-  position: relative;
-  width: 100%;
-  max-width: 400px;
-  margin: 0 auto;
+  display: flex;
+  align-items: center;
 }
+
 .search-container input {
-  width: 100%;
-  padding: 10px 40px 10px 10px; /* Add padding to the right to make space for the icon */
+  flex: 1;
+  padding: 8px;
   border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-}
-.search-container .search-icon {
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #ccc;
+  border-radius: 4px 0 0 4px;
   font-size: 16px;
+}
+
+.search-container .search-button {
+  padding: 8px 16px;
+  border: 1px solid #ccc;
+  border-left: none; /* Remove border between input and button */
+  border-radius: 0 4px 4px 0;
+  /* background-color: #007bff; */
+  color: rgb(16, 16, 16);
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.search-container .search-button:hover {
+  background-color: #e8ebef;
+}
+
+.suggestions-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border: 1px solid #ccc;
+  border-top: none;
+  max-height: 200px;
+  overflow-y: auto;
+  position: absolute;
+  background-color: white;
+  width: 100%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.suggestions-list li {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.suggestions-list li:hover {
+  background-color: #f1f1f1;
 }
