@@ -81,11 +81,11 @@
 }
 
 /* Category List and Cards */
-.categories-container {
+/* .categories-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-}
+} */
 
 .category-list, .service-list {
   display: flex;
@@ -206,11 +206,15 @@
 .slick-slide {
   display: flex;
   justify-content: center;
+  
 }
 
 .slick-slide .category-card {
   width: 90% !important;
   height: 90% !important;
+}
+.slick-dots{
+  margin-bottom: 20px;
 }
 
 /* Responsive Design */

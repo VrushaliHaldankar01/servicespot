@@ -98,9 +98,17 @@ const Dashboard = () => {
         }
     };
 
+    const handleViewAllClick = () => {
+        if(isLoggedIn){
+            navigate('/categories');
+        } else {
+            alert ('Please Log In to View all Categories');
+            navigate('/login');
+        }
+    };
     const settings = {
         dots: true,
-        infinite: true,
+        infinite: false,
         speed: 500,
         slidesToShow: 5,
         slidesToScroll: 1,
@@ -138,13 +146,15 @@ const Dashboard = () => {
             <div className="content-section">
                 <div className="section-header">
                     <h3>Categories</h3>
-                    <a href="/categories" className="viewall">View All</a>
+                    <a href="#" className="viewall" onClick={handleViewAllClick}>View All</a>
                 </div>
+                < div >
                 {categories.length > 5 && (
                     <Slider {...settings}>
                         {renderCategoryCards(categories)}
                     </Slider>
                 )}
+                </div>
                 <div className="section-header">
                     <h3>Trending Services</h3>
                 </div>

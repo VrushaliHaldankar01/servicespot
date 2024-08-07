@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './UserRegisterModule.css';
+import './LoginModule.css';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import axios from 'axios'; // Import Axios
@@ -70,7 +70,7 @@ const Login = () => {
   }
 
   return (
-    <div className="d-flex flex-column min-vh-100">
+    <div className="d-flex flex-column">
       <Header />
       <div className='container mt-4 mb-4 flex-grow-1' style={{ maxWidth: '700px' }}>
         <div className='registration-box p-4 rounded'>
