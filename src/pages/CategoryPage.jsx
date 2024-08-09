@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -13,6 +13,7 @@ const CategoryPage = () => {
   const [filteredSubCategories, setFilteredSubCategories] = useState([]);
   const [expandedCategoryId, setExpandedCategoryId] = useState(null);
   const [categoryContent, setCategoryContent] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -82,17 +83,20 @@ const CategoryPage = () => {
       );
     }
   };
-
-  const handleSubCategoryClick = async (subCategory) => {
-    try {
-      const response = await axios.get(
-        `http://localhost:4000/admin/fetchPerticularSubCategory?name=${subCategory.name}`
-      );
-      setCategoryContent(response.data);
-    } catch (error) {
-      console.error('Error fetching category content:', error);
-    }
+  const handleSubCategoryClick = (subCategory) => {
+    navigate(`/subcategory/${subCategory._id}`);
   };
+
+  // const handleSubCategoryClick = async (subCategory) => {
+  //   try {
+  //     const response = await axios.get(
+  //       `http://localhost:4000/admin/fetchPerticularSubCategory?name=${subCategory.name}`
+  //     );
+  //     setCategoryContent(response.data);
+  //   } catch (error) {
+  //     console.error('Error fetching category content:', error);
+  //   }
+  // };
 
   return (
     <div>
@@ -105,7 +109,7 @@ const CategoryPage = () => {
         />
         <div className='content'>
           {filteredSubCategories.slice(0, 6).map((subCategory) => (
-            <div key={subCategory._id} className='subcategory-card'>
+            <div key={subCategory._id} className='subcategory-card' onClick={() => handleSubCategoryClick(subCategory)}>
               <img
                 src={
                   subCategory.subcategoryImage.length > 0

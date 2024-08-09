@@ -53,6 +53,12 @@ const Dashboard = () => {
   }, []);
 
   const handleSearch = async (term) => {
+    if (!isLoggedIn) {
+        alert('Please log in to perform the search.');
+        navigate('/login');
+        return;
+      }
+    
     try {
       const response = await axios.get(
         `http://localhost:4000/admin/fetchCategory?name=${term}`
@@ -69,10 +75,19 @@ const Dashboard = () => {
   };
 
   const placeholderImage = 'https://via.placeholder.com/150';
+  const handleCardClick = (categoryName) => {
+    if (isLoggedIn) {
+      navigate(`/categories/${categoryName}`);
+    } else {
+      alert('Please log in to visit the categories.');
+      navigate('/login');
+    }
+  };
 
   const renderServiceCards = (services) => {
     return services.slice(0, 3).map(({ category }) => (
-      <div className='service-card' key={category._id}>
+      <div className='service-card' key={category._id}
+      onClick={() => handleCardClick(category.name)}>
         <div className='service-image'>
           <img
             src={
@@ -96,7 +111,7 @@ const Dashboard = () => {
       <div
         className='category-card'
         key={category._id}
-        onClick={() => navigate(`/categories/${category.name}`)} // Add onClick handler
+        onClick={() => handleCardClick(category.name)} // Add onClick handler
       >
         <div className='category-image'>
           <img
@@ -115,6 +130,14 @@ const Dashboard = () => {
       </div>
     ));
   };
+  const handleViewAllClick = () => {
+    if(isLoggedIn){
+        navigate('/categories');
+    } else {
+        alert('Please log in to access the categories.');
+        navigate('/login');
+    }
+  }
 
   const settings = {
     dots: true,
@@ -162,7 +185,7 @@ const Dashboard = () => {
       <div className='content-section'>
         <div className='section-header'>
           <h3>Categories</h3>
-          <a href='/categories' className='viewall'>
+          <a href='#' className='viewall'onClick={handleViewAllClick}>
             View All
           </a>
         </div>

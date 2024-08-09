@@ -8,6 +8,7 @@ import About from '../pages/About';
 import Contact from '../pages/Contact';
 import Terms from '../pages/Terms';
 import Privacy from '../pages/Privacy';
+import SubCategoryPage from '../pages/SubCategoryPage';
 //import VendorDashboard from '../pages/VendorDashboard'; // Ensure correct import
 
 import UserRegister from '../pages/UserRegister';
@@ -35,6 +36,7 @@ function App() {
         <Route path='/Privacy' element={<Privacy />} />
         <Route path='/VendorDashboard' element={<VendorDashboard />} />
         <Route path='/categories/:name' element={<CategoryPage />} />
+        <Route path='/subcategory/:subCategoryId' element={<SubCategoryPage />} /> {/* Add SubCategoryPage route */}
       </Routes>
     </Router>
   );
