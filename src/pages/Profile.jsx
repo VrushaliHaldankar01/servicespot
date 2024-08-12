@@ -4,9 +4,11 @@ import axios from 'axios';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Sidebar from '../components/Sidebar';
+import Notification from '../components/Notification';
 import '../css/ProfileModule.css';
 
-const ProfileDetails = ({ formData, handleChange, handleUpdate }) => (
+
+const ProfileDetails = ({ formData, handleChange, handleUpdate, handleUpdatePassword }) => (
   <>
     <h3>My Profile</h3>
     <form onSubmit={handleUpdate}>
@@ -72,7 +74,7 @@ const ProfileDetails = ({ formData, handleChange, handleUpdate }) => (
           onChange={handleChange}
         />
       </div>
-      <button className="update-btn" type="submit">Update Password</button>
+      <button className="update-btn" type="submit" onClick={handleUpdatePassword}>Update Password</button>
     </form>
   </>
 );
@@ -87,9 +89,11 @@ const Profile = () => {
     newPassword: '',
   });
 
+  const [userId, setUserId] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [errors, setErrors] = useState({});
   const [sidebarActive, setSidebarActive] = useState(false); // State to control sidebar visibility
+  const [notification, setNotification] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -106,8 +110,9 @@ const Profile = () => {
           params: { email },
         });
 
-        const { email: userEmail, firstName, lastName, phonenumber: contactNumber } = response.data.user;
+        const { _id, email: userEmail, firstName, lastName, phonenumber: contactNumber } = response.data.user;
         setFormData({ email: userEmail, firstName, lastName, contactNumber, password: '', newPassword: '' });
+        setUserId(_id);
         console.log('User data:', response.data);
       } catch (error) {
         console.error('Error fetching user data:', error);
@@ -130,7 +135,7 @@ const Profile = () => {
     try {
       const token = localStorage.getItem('token');
       await axios.put(
-        'http://localhost:4000/user/update',
+        `http://localhost:4000/user/editUser/${userId}`,
         {
           firstName: formData.firstName,
           lastName: formData.lastName,
@@ -140,23 +145,44 @@ const Profile = () => {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      setSuccessMessage('Profile updated successfully!');
-      setTimeout(() => setSuccessMessage(''), 3000);
+      
+      setNotification('Profile updated successfully!');
+      // setTimeout(() => setSuccessMessage(''), 3000);
       // Handle successful update, e.g., show a success message
     } catch (error) {
       console.error('Error updating profile:', error);
     }
   };
 
+  const handleUpdatePassword = async (e) => {
+    e.preventDefault();
+    try {
+      const token = localStorage.getItem('token');
+      await axios.put('http://localhost:4000/user/updatePassword', 
+        {
+          id: userId,
+          oldPassword: formData.password,
+          newPassword: formData.newPassword,
+        },
+        {
+          headers: {Authorization: `Bearer ${token}`},
+        }
+      );
+      setNotification('Password updated successfully!');
+    } catch(error){
+      console.error('Error updating password:', error);
+    }
+  };
   const handleDeleteAccount = async () => {
     try {
       const token = localStorage.getItem('token');
-      await axios.delete('http://localhost:4000/user/delete', {
+      await axios.delete(`http://localhost:4000/user/deleteAccount/?id=${userId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       localStorage.removeItem('user');
       localStorage.removeItem('token');
       localStorage.removeItem('email');
+      setNotification('Account deleted successfully!');
       navigate('/Dashboard');
     } catch (error) {
       console.error('Error deleting account:', error);
@@ -183,6 +209,7 @@ const Profile = () => {
         </div>
       </div>
       <Footer />
+      {notification && <Notification message={notification} onClose={() => setNotification(null)} />}
     </div>
   );
 };
