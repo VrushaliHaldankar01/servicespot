@@ -3,14 +3,13 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Dashboard from '../pages/Dashboard';
 import VendorRegister from '../pages/VendorRegister';
 import CategoryPage from '../pages/CategoryPage';
-import Profile from '../pages/Profile'; // Import Profile component
+import Profile from '../pages/Profile';
 import About from '../pages/About';
 import Contact from '../pages/Contact';
 import Terms from '../pages/Terms';
 import Privacy from '../pages/Privacy';
 import SubCategoryPage from '../pages/SubCategoryPage';
-//import VendorDashboard from '../pages/VendorDashboard'; // Ensure correct import
-
+// import Chat from '../pages/Chat';
 import UserRegister from '../pages/UserRegister';
 import Login from '../pages/Login';
 import VendorDashboard from '../pages/VendorDashboard';
@@ -29,16 +28,21 @@ function App() {
         <Route path='/UserRegister' element={<UserRegister />} />
         <Route path='/Login' element={<Login />} />
         <Route path='/categories' element={<CategoryPage />} />
-        <Route path='/Profile' element={<Profile />} />{' '}
-        {/* Add Profile route */}
+        <Route path='/Profile' element={<Profile />} />
         <Route path='/About' element={<About />} />
         <Route path='/Contact' element={<Contact />} />
         <Route path='/Terms' element={<Terms />} />
         <Route path='/Privacy' element={<Privacy />} />
         <Route path='/VendorDashboard' element={<VendorDashboard />} />
         <Route path='/categories/:name' element={<CategoryPage />} />
-        <Route path='/subcategory/:subCategoryId' element={<SubCategoryPage />} /> {/* Add SubCategoryPage route */}
-        <Route path='/VendorDetailPage' element={<VendorDetailPage/>} />
+        <Route
+          path='/subcategory/:subCategoryId'
+          element={<SubCategoryPage />}
+        />
+        <Route
+          path='/VendorDetailPage/:vendorId'
+          element={<VendorDetailPage />}
+        />
       </Routes>
     </Router>
   );

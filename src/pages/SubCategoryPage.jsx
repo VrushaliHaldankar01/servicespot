@@ -29,7 +29,7 @@ const SubCategoryPage = () => {
   useEffect(() => {
     const fetchVendors = async () => {
       try {
-        const response = await axios.get('http://localhost:4000/vendor/VendorWrtSubcategory'); // Assuming this endpoint returns all vendors
+        const response = await axios.get('http://localhost:4000/vendor/VendorDetails'); // Assuming this endpoint returns all vendors
         setVendors(response.data);
         setFilteredVendors(response.data); // Initially show all vendors
       } catch (error) {
@@ -64,6 +64,9 @@ const SubCategoryPage = () => {
 
   const handleSubCategoryClick = (id) => {
     navigate(`/subcategory/${id}`);
+  };
+  const handleVendorDetailClick = (vendorId) => {
+    navigate(`/VendorDetailPage/${vendorId}`);
   };
 
   return (
@@ -123,8 +126,10 @@ const SubCategoryPage = () => {
                       <p><b>Business Address:</b> {`${vendor.city}, ${vendor.province}, ${vendor.postalcode}`}</p>
                       <p><b>Description:</b> {vendor.businessdescription}</p>
                       <p><b>Email:</b> {vendor.vendorid.email}</p>
-                      <button onClick={() => navigate('/VendorDetailPage')}><b>View Vendor Details</b></button>
-                    </div>
+                      <button onClick={() => handleVendorDetailClick(vendor._id)}>
+                      <b>View Vendor Details</b>
+                    </button>
+                                        </div>
                   </div>
                 ))}
               </>

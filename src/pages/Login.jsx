@@ -48,10 +48,17 @@ const Login = () => {
         email: formData.email,
         password: formData.password,
       });
+      console.log('Login Response', response.data);
       localStorage.setItem('user', JSON.stringify(response.data.user));
       localStorage.setItem('email', response.data.user.email); // Store email in local storage
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('role', response.data.user.role); // Store role in local storage
+      
+      localStorage.setItem('vendorId', response.data.user._id || response.data.user.vendorid);
+
+        // Log the vendorId to check its value
+        console.log('Vendor ID Stored:', localStorage.getItem('vendorId'));
+        
       setError('');
       setIsLoggedIn(true);
     } catch (error) {
