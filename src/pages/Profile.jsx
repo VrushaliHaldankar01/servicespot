@@ -7,7 +7,6 @@ import Sidebar from '../components/Sidebar';
 import Notification from '../components/Notification';
 import '../css/ProfileModule.css';
 
-
 const ProfileDetails = ({ formData, handleChange, handleUpdate, handleUpdatePassword }) => (
   <>
     <h3>My Profile</h3>
@@ -55,7 +54,7 @@ const ProfileDetails = ({ formData, handleChange, handleUpdate, handleUpdatePass
     </form>
 
     <h3>Change Password</h3>
-    <form onSubmit={handleUpdate}>
+    <form onSubmit={handleUpdatePassword}>
       <div className="form-section">
         <label>Current Password</label>
         <input
@@ -74,7 +73,7 @@ const ProfileDetails = ({ formData, handleChange, handleUpdate, handleUpdatePass
           onChange={handleChange}
         />
       </div>
-      <button className="update-btn" type="submit" onClick={handleUpdatePassword}>Update Password</button>
+      <button className="update-btn" type="submit">Update Password</button>
     </form>
   </>
 );
@@ -90,10 +89,8 @@ const Profile = () => {
   });
 
   const [userId, setUserId] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
-  const [errors, setErrors] = useState({});
-  const [sidebarActive, setSidebarActive] = useState(false); // State to control sidebar visibility
   const [notification, setNotification] = useState(null);
+  const [sidebarActive, setSidebarActive] = useState(false);  // Added state for sidebar
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -147,10 +144,9 @@ const Profile = () => {
       );
       
       setNotification('Profile updated successfully!');
-      // setTimeout(() => setSuccessMessage(''), 3000);
-      // Handle successful update, e.g., show a success message
     } catch (error) {
       console.error('Error updating profile:', error);
+      setNotification('Error updating profile, Please try again');
     }
   };
 
@@ -158,7 +154,7 @@ const Profile = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem('token');
-      await axios.put('http://localhost:4000/user/updatePassword', 
+      await axios.post('http://localhost:4000/user/updatePassword', 
         {
           id: userId,
           oldPassword: formData.password,
@@ -168,25 +164,35 @@ const Profile = () => {
           headers: {Authorization: `Bearer ${token}`},
         }
       );
-      setNotification('Password updated successfully!');
-    } catch(error){
+
+     
+        setNotification('Password updated successfully!');
+
+      setFormData({ ...formData, password: '', newPassword: '' });
+    } catch (error) {
       console.error('Error updating password:', error);
+      setNotification('Error updating password, Please try again');
     }
   };
+
   const handleDeleteAccount = async () => {
+    if (window.confirm(`Are you sure you want to delete the account for ${formData.firstName} ${formData.lastName}? This action cannot be undone.`))
+    {
     try {
       const token = localStorage.getItem('token');
-      await axios.delete(`http://localhost:4000/user/deleteAccount/?id=${userId}`, {
+      await axios.put(`http://localhost:4000/user/deleteAccount/?id=${userId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       localStorage.removeItem('user');
       localStorage.removeItem('token');
       localStorage.removeItem('email');
       setNotification('Account deleted successfully!');
-      navigate('/Dashboard');
+      navigate('/login');
     } catch (error) {
       console.error('Error deleting account:', error);
+      setNotification('Error deleting account, Please try again');
     }
+  }
   };
 
   return (
@@ -197,8 +203,7 @@ const Profile = () => {
         <Sidebar className={sidebarActive ? 'active' : ''} firstName={formData.firstName} lastName={formData.lastName} />
         <div className="profile-form-container">
           <Routes>
-            <Route path="/" element={<ProfileDetails formData={formData} handleChange={handleChange} handleUpdate={handleUpdate} successMessage={successMessage} />} />
-            {/* Define other routes here */}
+            <Route path="/" element={<ProfileDetails formData={formData} handleChange={handleChange} handleUpdate={handleUpdate} handleUpdatePassword={handleUpdatePassword} />} />
             <Route path="/Inbox" element={<div>Inbox Content</div>} />
             <Route path="/Bookings" element={<div>Bookings Content</div>} />
             <Route path="/Help" element={<div>Help Content</div>} />

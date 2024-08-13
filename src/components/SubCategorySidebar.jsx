@@ -1,9 +1,18 @@
 import React from 'react';
 import '../css/SubCategorySidebar.css';
+import { useNavigate } from 'react-router';
 
 const SubCategorySidebar = ({ subCategories, handleSubCategoryClick }) => {
+    const navigate = useNavigate();
+
+    const handleBackClick = () => {
+        navigate('/categories');
+    };
     return (
         <div className="sidebar">
+            <button className='back-button' onClick={handleBackClick}>
+                Back to Categories
+            </button>
             {subCategories.map(subCategory => (
                 <div key={subCategory._id} className="subcategory-item" onClick={() => handleSubCategoryClick(subCategory._id)}>
                     <div className="subcategory-header">
