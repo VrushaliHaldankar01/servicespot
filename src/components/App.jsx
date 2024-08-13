@@ -15,6 +15,7 @@ import UserRegister from '../pages/UserRegister';
 import Login from '../pages/Login';
 import VendorDashboard from '../pages/VendorDashboard';
 import { ToastContainer } from 'react-toastify';
+import VendorDetailPage from '../pages/VendorDetailPage';
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
         <Route path='/VendorDashboard' element={<VendorDashboard />} />
         <Route path='/categories/:name' element={<CategoryPage />} />
         <Route path='/subcategory/:subCategoryId' element={<SubCategoryPage />} /> {/* Add SubCategoryPage route */}
+        <Route path='/VendorDetailPage' element={<VendorDetailPage/>} />
       </Routes>
     </Router>
   );
