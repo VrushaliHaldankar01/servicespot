@@ -9,6 +9,8 @@ import Contact from '../pages/Contact';
 import Terms from '../pages/Terms';
 import Privacy from '../pages/Privacy';
 import SubCategoryPage from '../pages/SubCategoryPage';
+import Chat from '../pages/Chat'; // Import Chat component
+
 //import VendorDashboard from '../pages/VendorDashboard'; // Ensure correct import
 
 import UserRegister from '../pages/UserRegister';
@@ -17,6 +19,9 @@ import VendorDashboard from '../pages/VendorDashboard';
 import { ToastContainer } from 'react-toastify';
 
 function App() {
+  const userId = '66bab662ffdb6718f95c0197'; // Replace with actual user ID
+  const recipientId = '6684ca9591be59c0b357422e'; // Replace with actual recipient ID
+  const recipientType = 'Vendor'; // Replace with 'Vendor' if chatting with a vendor
   return (
     <Router>
       <ToastContainer />
@@ -36,7 +41,12 @@ function App() {
         <Route path='/Privacy' element={<Privacy />} />
         <Route path='/VendorDashboard' element={<VendorDashboard />} />
         <Route path='/categories/:name' element={<CategoryPage />} />
-        <Route path='/subcategory/:subCategoryId' element={<SubCategoryPage />} /> {/* Add SubCategoryPage route */}
+        <Route
+          path='/subcategory/:subCategoryId'
+          element={<SubCategoryPage />}
+        />{' '}
+        {/* Add this route */}
+        <Route path='/messages' element={<Chat />} />
       </Routes>
     </Router>
   );

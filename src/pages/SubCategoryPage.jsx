@@ -17,7 +17,9 @@ const SubCategoryPage = () => {
   useEffect(() => {
     const fetchSubCategories = async () => {
       try {
-        const response = await axios.get('http://localhost:4000/admin/fetchSubCategory');
+        const response = await axios.get(
+          'http://localhost:4000/admin/fetchSubCategory'
+        );
         setSubCategories(response.data);
       } catch (error) {
         console.error('Error fetching subcategories:', error);
@@ -29,7 +31,9 @@ const SubCategoryPage = () => {
   useEffect(() => {
     const fetchVendors = async () => {
       try {
-        const response = await axios.get('http://localhost:4000/vendor/VendorWrtSubcategory'); // Assuming this endpoint returns all vendors
+        const response = await axios.get(
+          'http://localhost:4000/vendor/vendorDetails'
+        ); // Assuming this endpoint returns all vendors
         setVendors(response.data);
         setFilteredVendors(response.data); // Initially show all vendors
       } catch (error) {
@@ -43,7 +47,9 @@ const SubCategoryPage = () => {
     if (subCategoryId) {
       const fetchSelectedSubCategory = async () => {
         try {
-          const response = await axios.get(`http://localhost:4000/admin/fetchPerticularSubCategory?id=${subCategoryId}`);
+          const response = await axios.get(
+            `http://localhost:4000/admin/fetchPerticularSubCategory?id=${subCategoryId}`
+          );
           setSelectedSubCategory(response.data);
         } catch (error) {
           console.error('Error fetching selected subcategory:', error);
@@ -58,7 +64,9 @@ const SubCategoryPage = () => {
   }, [subCategoryId, vendors]);
 
   const filterVendorsBySubCategory = (id) => {
-    const filtered = vendors.filter(vendor => vendor.subcategory && vendor.subcategory._id === id);
+    const filtered = vendors.filter(
+      (vendor) => vendor.subcategory && vendor.subcategory._id === id
+    );
     setFilteredVendors(filtered);
   };
 
@@ -70,35 +78,37 @@ const SubCategoryPage = () => {
     <div>
       <Header />
       <div className='subcategory-page'>
-        <SubCategorySidebar subCategories={subCategories} handleSubCategoryClick={handleSubCategoryClick} />
+        <SubCategorySidebar
+          subCategories={subCategories}
+          handleSubCategoryClick={handleSubCategoryClick}
+        />
         <div className='content'>
           <div className='subcategory-details'>
-            <h1>{selectedSubCategory ? selectedSubCategory.name : 'All Vendors'}</h1>
+            <h1>
+              {selectedSubCategory ? selectedSubCategory.name : 'All Vendors'}
+            </h1>
             {filteredVendors.length > 0 ? (
               filteredVendors.map((vendor) => (
                 <div key={vendor._id} className='vendor-card'>
-                  {/* <h2>{vendor.subcategory && vendor.subcategory.name}</h2> */}
-                                  
-      <img
-                    src={vendor.businessImages && vendor.businessImages.length > 0
-                      ? vendor.businessImages[0]
-                      : 'https://via.placeholder.com/150'}
+                  <h2>{vendor.subcategory && vendor.subcategory.name}</h2>
+                  <img
+                    src={
+                      vendor.businessImages && vendor.businessImages.length > 0
+                        ? vendor.businessImages[0]
+                        : 'https://via.placeholder.com/150'
+                    }
                     alt={vendor.businessname}
                   />
                   <div className='vendor-info'>
-                    {/* <h3>Business Name: {vendor.businessname}</h3> */}
-                    <h3> <div className="category-name">
-        {vendor.subcategory && vendor.subcategory.category
-          ? vendor.subcategory.category.name
-          : 'No Category'}
-      </div> </h3>
-                    <p><b>Business Name:</b> {vendor.businessdescription}</p>
-                    <p><b>Description:</b> {vendor.businessdescription}</p>
-                    {/* <p><b>Vendor Name:</b> {vendor.vendorid.firstName} {vendor.vendorid.lastName}</p> */}
-                    <p><b>Email:</b> {vendor.vendorid.email}</p>
-                    <p><b>Business Address:</b> {vendor.businessdescription}</p>
-                    {/* <p><b>Phone Number:</b> {vendor.vendorid.phonenumber}</p> */}
-                    <button><b>View Vendor Details</b></button>
+                    <h3>Business Name: {vendor.businessname}</h3>
+                    <p>Description: {vendor.businessdescription}</p>
+                    <p>
+                      Vendor Name: {vendor.vendorid.firstName}{' '}
+                      {vendor.vendorid.lastName}
+                    </p>
+                    <p>Email: {vendor.vendorid.email}</p>
+                    <p>Phone Number: {vendor.vendorid.phonenumber}</p>
+                    <button>Contact Vendor</button>
                   </div>
                 </div>
               ))
