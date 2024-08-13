@@ -1,3 +1,4 @@
+//wprkingcode
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -107,9 +108,6 @@ const SubCategoryPage = () => {
                     <h3>
                       <div className='category-name'>
                         <h2>{vendor.category && vendor.category.name}</h2>
-                        {/* {vendor.subcategory && vendor.subcategory.category
-                          ? vendor.subcategory.category.name
-                          : 'No Category'} */}
                       </div>
                     </h3>
                     <p>
