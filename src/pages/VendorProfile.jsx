@@ -1,138 +1,154 @@
-import React, { useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './LoginModule.css';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import axios from 'axios'; // Import Axios
-import { Navigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import './VendorProfile.css';
 
-const Login = () => {
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-  });
+const VendorProfile = () => {
+  const [profile, setProfile] = useState(null);
+  const [editMode, setEditMode] = useState(false);
+  const [formValues, setFormValues] = useState({});
 
-  const [error, setError] = useState('');
-  const [errors, setErrors] = useState({});
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  useEffect(() => {
+    const fetchProfile = async () => {
+      const vendorId = localStorage.getItem('user'); // Replace 'user' if you're storing a different key
+      try {
+        const response = await axios.get(`http://localhost:4000/vendor/vendorDetails?id=${vendorId}`);
+        const data = response.data[0]; // Assuming the API returns an array with a single vendor object
+        setProfile(data);
+        setFormValues({
+          name: `${data.vendorid.firstName} ${data.vendorid.lastName}`,
+          email: data.vendorid.email,
+          phone: data.vendorid.phonenumber,
+          address: data.address || '',
+          businessName: data.businessname,
+          businessDescription: data.businessdescription,
+          province: data.province,
+          city: data.city,
+          postalCode: data.postalcode,
+          businessNumber: data.businessnumber,
+          businessCategory: data.category.name,
+          businessSubcategory: data.subcategory.name,
+          businessImage: data.businessImages[0],
+        });
+      } catch (error) {
+        console.error('Error fetching profile:', error);
+      }
+    };
+
+    fetchProfile();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value
-    });
+    setFormValues({ ...formValues, [name]: value });
   };
 
-  const validate = () => {
-    const newErrors = {};
-    if (!formData.email) {
-      newErrors.email = 'Email is required';
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = 'Email address is invalid';
-    }
-
-    if (!formData.password) {
-      newErrors.password = 'Password is required';
-    }
-
-    return newErrors;
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const validationErrors = validate();
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
-    } else {
-      try {
-        const response = await axios.post('http://localhost:4000/user/login', {
-          email: formData.email,
-          password: formData.password,
-        });
-
-        // Log the full response to see what data is returned
-        console.log('Login Response:', response.data);
-
-        // Storing user data in local storage
-        localStorage.setItem('user', JSON.stringify(response.data.user));
-        localStorage.setItem('email', response.data.user.email);
-        localStorage.setItem('token', response.data.token);
-        localStorage.setItem('role', response.data.user.role);
-
-        // Assuming vendor ID is stored under response.data.user._id
-        localStorage.setItem('vendorId', response.data.user._id || response.data.user.vendorid);
-
-        // Log the vendorId to check its value
-        console.log('Vendor ID Stored:', localStorage.getItem('vendorId'));
-
-        setError('');
-        setIsLoggedIn(true);
-      } catch (error) {
-        console.log('Error:', error.response ? error.response.data : error.message);
-        setError(error.response.data.error || 'An unexpected error occurred. Please try again.');
+  const handleSave = async () => {
+    try {
+      const response = await axios.post('http://localhost:4000/vendor/updateProfile', formValues);
+      if (response.status === 200) {
+        setProfile(formValues);
+        setEditMode(false);
+      } else {
+        console.error('Failed to update profile');
       }
+    } catch (error) {
+      console.error('Error updating profile:', error);
     }
   };
 
-  if (isLoggedIn) {
-    const role = localStorage.getItem('role');
-    if (role === 'vendor') {
-      return <Navigate to="/VendorDashboard" replace />;
-    } else {
-      return <Navigate to="/Dashboard" replace />;
-    }
-  }
+  const handleCancel = () => {
+    setFormValues(profile);
+    setEditMode(false);
+  };
 
   return (
-    <div className="d-flex flex-column">
-      <Header />
-      <div className='container mt-4 mb-4 flex-grow-1' style={{ maxWidth: '700px' }}>
-        <div className='registration-box p-4 rounded'>
-          <form onSubmit={handleSubmit} className='p-4 rounded'>
-            <h3>Login</h3>
-            <div className='form-group mb-3'>
-              <label>Email</label>
-              <input
-                type='email'
-                className='form-control'
-                name='email'
-                value={formData.email}
-                onChange={handleChange}
-              />
-              {errors.email && <p className='text-danger'>{errors.email}</p>}
+    <div className="vendor-profile">
+      <h3>Vendor Profile</h3>
+      {profile ? (
+        <div className="profile-details">
+          {editMode ? (
+            <div className="profile-form">
+              <label>
+                Name:
+                <input type="text" name="name" value={formValues.name} onChange={handleChange} />
+              </label>
+              <label>
+                Email:
+                <input type="email" name="email" value={formValues.email} onChange={handleChange} />
+              </label>
+              <label>
+                Phone:
+                <input type="text" name="phone" value={formValues.phone} onChange={handleChange} />
+              </label>
+              <label>
+                Address:
+                <input type="text" name="address" value={formValues.address} onChange={handleChange} />
+              </label>
+              <label>
+                Business Name:
+                <input type="text" name="businessName" value={formValues.businessName} onChange={handleChange} />
+              </label>
+              <label>
+                Business Description:
+                <input type="text" name="businessDescription" value={formValues.businessDescription} onChange={handleChange} />
+              </label>
+              <label>
+                Province:
+                <input type="text" name="province" value={formValues.province} onChange={handleChange} />
+              </label>
+              <label>
+                City:
+                <input type="text" name="city" value={formValues.city} onChange={handleChange} />
+              </label>
+              <label>
+                Postal Code:
+                <input type="text" name="postalCode" value={formValues.postalCode} onChange={handleChange} />
+              </label>
+              <label>
+                Business Number:
+                <input type="text" name="businessNumber" value={formValues.businessNumber} onChange={handleChange} />
+              </label>
+              <label>
+                Business Category:
+                <input type="text" name="businessCategory" value={formValues.businessCategory} onChange={handleChange} />
+              </label>
+              <label>
+                Business Subcategory:
+                <input type="text" name="businessSubcategory" value={formValues.businessSubcategory} onChange={handleChange} />
+              </label>
+              <label>
+                Business Image URL:
+                <input type="text" name="businessImage" value={formValues.businessImage} onChange={handleChange} />
+              </label>
+              <button onClick={handleSave}>Save</button>
+              <button onClick={handleCancel}>Cancel</button>
             </div>
-            <div className='form-group mb-3'>
-              <label>Password</label>
-              <input
-                type='password'
-                className='form-control'
-                name='password'
-                value={formData.password}
-                onChange={handleChange}
-              />
-              {errors.password && <p className='text-danger'>{errors.password}</p>}
+          ) : (
+            <div className="profile-info">
+              <div><strong>Name:</strong> {profile.vendorid.firstName} {profile.vendorid.lastName}</div>
+              <div><strong>Email:</strong> {profile.vendorid.email}</div>
+              <div><strong>Phone:</strong> {profile.vendorid.phonenumber}</div>
+              <div><strong>Address:</strong> {profile.address}</div>
+              <div><strong>Business Name:</strong> {profile.businessname}</div>
+              <div><strong>Business Description:</strong> {profile.businessdescription}</div>
+              <div><strong>Province:</strong> {profile.province}</div>
+              <div><strong>City:</strong> {profile.city}</div>
+              <div><strong>Postal Code:</strong> {profile.postalcode}</div>
+              <div><strong>Business Number:</strong> {profile.businessnumber}</div>
+              <div><strong>Business Category:</strong> {profile.category.name}</div>
+              <div><strong>Business Subcategory:</strong> {profile.subcategory.name}</div>
+              {profile.businessImages.length > 0 && (
+                <div><strong>Business Image:</strong> <img src={profile.businessImages[0]} alt="Business" /></div>
+              )}
+              <button onClick={() => setEditMode(true)}>Edit Profile</button>
             </div>
-            <div className='text-center'>
-              <button
-                type='submit'
-                className='btn btn-dark submitbutton rounded-pill'
-              >
-                Login
-              </button>
-            </div>
-            {error && <div className='alert alert-danger mt-3'>{error}</div>}
-            <div className='text-center mt-3'>
-              <p>
-                Don't have an account? <a href='/UserRegister'>Sign Up</a>
-              </p>
-            </div>
-          </form>
+          )}
         </div>
-      </div>
-      <Footer />
+      ) : (
+        <p>Loading profile...</p>
+      )}
     </div>
   );
 };
 
-export default Login;
+export default VendorProfile;

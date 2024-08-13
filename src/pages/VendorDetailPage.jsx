@@ -1,154 +1,111 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import './VendorProfile.css';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
+import SubCategorySidebar from '../components/SubCategorySidebar'; // Import the Sidebar component
+import '../css/VendorDetailPage.css'; // Import the CSS file
 
-const VendorProfile = () => {
-  const [profile, setProfile] = useState(null);
-  const [editMode, setEditMode] = useState(false);
-  const [formValues, setFormValues] = useState({});
+const VendorDetailPage = () => {
+  const { vendorId } = useParams(); // Get the vendor ID from the URL
+  const [vendorDetails, setVendorDetails] = useState(null);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchProfile = async () => {
-      const vendorId = localStorage.getItem('user'); // Replace 'user' if you're storing a different key
+    const fetchVendorDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:4000/vendor/vendorDetails?id=${vendorId}`);
-        const data = response.data[0]; // Assuming the API returns an array with a single vendor object
-        setProfile(data);
-        setFormValues({
-          name: `${data.vendorid.firstName} ${data.vendorid.lastName}`,
-          email: data.vendorid.email,
-          phone: data.vendorid.phonenumber,
-          address: data.address || '',
-          businessName: data.businessname,
-          businessDescription: data.businessdescription,
-          province: data.province,
-          city: data.city,
-          postalCode: data.postalcode,
-          businessNumber: data.businessnumber,
-          businessCategory: data.category.name,
-          businessSubcategory: data.subcategory.name,
-          businessImage: data.businessImages[0],
-        });
+        const response = await axios.get(
+          `http://localhost:4000/vendor/vendorDetails?id=${vendorId}`
+        );
+
+        // Assuming response.data is an array with one object
+        if (Array.isArray(response.data) && response.data.length > 0) {
+          setVendorDetails(response.data[0]); // Extract the first object
+        } else {
+          setError('No vendor details found.');
+        }
       } catch (error) {
-        console.error('Error fetching profile:', error);
+        console.error('Error fetching vendor details:', error);
+        setError('Failed to load vendor details.');
       }
     };
+    fetchVendorDetails();
+  }, [vendorId]);
 
-    fetchProfile();
-  }, []);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormValues({ ...formValues, [name]: value });
+  const handleSubCategoryClick = (subCategoryId) => {
+    // Handle the subcategory click event
+    navigate(`/subcategory/${subCategoryId}`);
   };
 
-  const handleSave = async () => {
-    try {
-      const response = await axios.post('http://localhost:4000/vendor/updateProfile', formValues);
-      if (response.status === 200) {
-        setProfile(formValues);
-        setEditMode(false);
-      } else {
-        console.error('Failed to update profile');
-      }
-    } catch (error) {
-      console.error('Error updating profile:', error);
-    }
-  };
+  if (error) {
+    return <p>{error}</p>;
+  }
 
-  const handleCancel = () => {
-    setFormValues(profile);
-    setEditMode(false);
-  };
+  if (!vendorDetails) {
+    return <p>Loading vendor details...</p>;
+  }
 
   return (
-    <div className="vendor-profile">
-      <h3>Vendor Profile</h3>
-      {profile ? (
-        <div className="profile-details">
-          {editMode ? (
-            <div className="profile-form">
-              <label>
-                Name:
-                <input type="text" name="name" value={formValues.name} onChange={handleChange} />
-              </label>
-              <label>
-                Email:
-                <input type="email" name="email" value={formValues.email} onChange={handleChange} />
-              </label>
-              <label>
-                Phone:
-                <input type="text" name="phone" value={formValues.phone} onChange={handleChange} />
-              </label>
-              <label>
-                Address:
-                <input type="text" name="address" value={formValues.address} onChange={handleChange} />
-              </label>
-              <label>
-                Business Name:
-                <input type="text" name="businessName" value={formValues.businessName} onChange={handleChange} />
-              </label>
-              <label>
-                Business Description:
-                <input type="text" name="businessDescription" value={formValues.businessDescription} onChange={handleChange} />
-              </label>
-              <label>
-                Province:
-                <input type="text" name="province" value={formValues.province} onChange={handleChange} />
-              </label>
-              <label>
-                City:
-                <input type="text" name="city" value={formValues.city} onChange={handleChange} />
-              </label>
-              <label>
-                Postal Code:
-                <input type="text" name="postalCode" value={formValues.postalCode} onChange={handleChange} />
-              </label>
-              <label>
-                Business Number:
-                <input type="text" name="businessNumber" value={formValues.businessNumber} onChange={handleChange} />
-              </label>
-              <label>
-                Business Category:
-                <input type="text" name="businessCategory" value={formValues.businessCategory} onChange={handleChange} />
-              </label>
-              <label>
-                Business Subcategory:
-                <input type="text" name="businessSubcategory" value={formValues.businessSubcategory} onChange={handleChange} />
-              </label>
-              <label>
-                Business Image URL:
-                <input type="text" name="businessImage" value={formValues.businessImage} onChange={handleChange} />
-              </label>
-              <button onClick={handleSave}>Save</button>
-              <button onClick={handleCancel}>Cancel</button>
-            </div>
-          ) : (
-            <div className="profile-info">
-              <div><strong>Name:</strong> {profile.vendorid.firstName} {profile.vendorid.lastName}</div>
-              <div><strong>Email:</strong> {profile.vendorid.email}</div>
-              <div><strong>Phone:</strong> {profile.vendorid.phonenumber}</div>
-              <div><strong>Address:</strong> {profile.address}</div>
-              <div><strong>Business Name:</strong> {profile.businessname}</div>
-              <div><strong>Business Description:</strong> {profile.businessdescription}</div>
-              <div><strong>Province:</strong> {profile.province}</div>
-              <div><strong>City:</strong> {profile.city}</div>
-              <div><strong>Postal Code:</strong> {profile.postalcode}</div>
-              <div><strong>Business Number:</strong> {profile.businessnumber}</div>
-              <div><strong>Business Category:</strong> {profile.category.name}</div>
-              <div><strong>Business Subcategory:</strong> {profile.subcategory.name}</div>
-              {profile.businessImages.length > 0 && (
-                <div><strong>Business Image:</strong> <img src={profile.businessImages[0]} alt="Business" /></div>
-              )}
-              <button onClick={() => setEditMode(true)}>Edit Profile</button>
-            </div>
-          )}
+    <div>
+      <Header />
+      <div className='vendor-detail-container'>
+        <SubCategorySidebar
+          subCategories={
+            vendorDetails.subcategory ? [vendorDetails.subcategory] : []
+          }
+          handleSubCategoryClick={handleSubCategoryClick}
+        />
+        <div className='vendor-detail-content'>
+          <h1 className='vendor-title'>{vendorDetails.businessname}</h1>
+          <img
+            src={
+              vendorDetails.businessImages &&
+              vendorDetails.businessImages.length > 0
+                ? vendorDetails.businessImages[0]
+                : 'https://via.placeholder.com/150'
+            }
+            alt={vendorDetails.businessname}
+            className='vendor-image'
+          />
+          <div className='vendor-info'>
+            <p>
+              <b>Description:</b> {vendorDetails.businessdescription}
+            </p>
+            <p>
+              <b>Category:</b> {vendorDetails.category?.name}
+            </p>
+            <p>
+              <b>Subcategory:</b> {vendorDetails.subcategory?.name}
+            </p>
+            <p>
+              <b>Business Number:</b> {vendorDetails.businessnumber}
+            </p>
+            <p>
+              <b>Email:</b> {vendorDetails.vendorid?.email}
+            </p>
+            <p>
+              <b>Phone Number:</b> {vendorDetails.vendorid?.phonenumber}
+            </p>
+            <p>
+              <b>Business Address:</b>{' '}
+              {`${vendorDetails.city}, ${vendorDetails.province}, ${vendorDetails.postalcode}`}
+            </p>
+          </div>
+
+          <button
+            onClick={() =>
+              (window.location.href = `mailto:${vendorDetails.vendorid?.email}`)
+            }
+            className='contact-button'
+          >
+            Contact Vendor
+          </button>
         </div>
-      ) : (
-        <p>Loading profile...</p>
-      )}
+      </div>
+      <Footer />
     </div>
   );
 };
 
-export default VendorProfile;
+export default VendorDetailPage;
