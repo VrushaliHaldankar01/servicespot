@@ -100,20 +100,76 @@ const SubCategoryPage = () => {
                     alt={vendor.businessname}
                   />
                   <div className='vendor-info'>
-                    <h3>Business Name: {vendor.businessname}</h3>
-                    <p>Description: {vendor.businessdescription}</p>
+                    {/* <h3>Business Name: {vendor.businessname}</h3> */}
+                    <h3>
+                      {' '}
+                      <div className='category-name'>
+                        {vendor.subcategory && vendor.subcategory.category
+                          ? vendor.subcategory.category.name
+                          : 'No Category'}
+                      </div>{' '}
+                    </h3>
                     <p>
-                      Vendor Name: {vendor.vendorid.firstName}{' '}
-                      {vendor.vendorid.lastName}
+                      <b>Business Name:</b> {vendor.businessname}
                     </p>
-                    <p>Email: {vendor.vendorid.email}</p>
-                    <p>Phone Number: {vendor.vendorid.phonenumber}</p>
-                    <button>Contact Vendor</button>
+                    <p>
+                      <b>Description:</b> {vendor.businessdescription}
+                    </p>
+                    {/* <p><b>Vendor Name:</b> {vendor.vendorid.firstName} {vendor.vendorid.lastName}</p> */}
+                    <p>
+                      <b>Email:</b> {vendor.vendorid.email}
+                    </p>
+                    <p>
+                      <b>Business Address:</b>{' '}
+                      {`${vendor.city}, ${vendor.province}, ${vendor.postalcode}`}
+                    </p>
+                    {/* <p><b>Phone Number:</b> {vendor.vendorid.phonenumber}</p> */}
+                    <button>
+                      <b>View Vendor Details</b>
+                    </button>
                   </div>
                 </div>
               ))
             ) : (
-              <p>No vendors available for this subcategory.</p>
+              <>
+                <p>No vendors available for this subcategory.</p>
+                <h2>All Vendors</h2>
+                {vendors.map((vendor) => (
+                  <div key={vendor._id} className='vendor-card'>
+                    <img
+                      src={
+                        vendor.businessImages &&
+                        vendor.businessImages.length > 0
+                          ? vendor.businessImages[0]
+                          : 'https://via.placeholder.com/150'
+                      }
+                      alt={vendor.businessname}
+                    />
+                    <div className='vendor-info'>
+                      <h3>
+                        <div className='category-name'>
+                          {vendor.subcategory && vendor.subcategory.category
+                            ? vendor.subcategory.category.name
+                            : 'No Category'}
+                        </div>
+                      </h3>
+                      <p>
+                        <b>Business Address:</b>{' '}
+                        {`${vendor.city}, ${vendor.province}, ${vendor.postalcode}`}
+                      </p>
+                      <p>
+                        <b>Description:</b> {vendor.businessdescription}
+                      </p>
+                      <p>
+                        <b>Email:</b> {vendor.vendorid.email}
+                      </p>
+                      <button onClick={() => navigate('/VendorDetailPage')}>
+                        <b>View Vendor Details</b>
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </>
             )}
           </div>
         </div>

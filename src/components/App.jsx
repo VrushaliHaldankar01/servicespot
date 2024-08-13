@@ -17,6 +17,7 @@ import UserRegister from '../pages/UserRegister';
 import Login from '../pages/Login';
 import VendorDashboard from '../pages/VendorDashboard';
 import { ToastContainer } from 'react-toastify';
+import VendorDetailPage from '../pages/VendorDetailPage';
 
 function App() {
   const userId = '66bab662ffdb6718f95c0197'; // Replace with actual user ID
@@ -45,8 +46,8 @@ function App() {
           path='/subcategory/:subCategoryId'
           element={<SubCategoryPage />}
         />{' '}
-        {/* Add this route */}
-        <Route path='/messages' element={<Chat />} />
+        {/* Add SubCategoryPage route */}
+        <Route path='/VendorDetailPage' element={<VendorDetailPage />} />
       </Routes>
     </Router>
   );
