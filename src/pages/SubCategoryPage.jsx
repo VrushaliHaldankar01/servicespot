@@ -33,9 +33,9 @@ const SubCategoryPage = () => {
       try {
         const response = await axios.get(
           'http://localhost:4000/vendor/vendorDetails'
-        ); // Assuming this endpoint returns all vendors
+        );
         setVendors(response.data);
-        setFilteredVendors(response.data); // Initially show all vendors
+        setFilteredVendors(response.data);
       } catch (error) {
         console.error('Error fetching vendors:', error);
       }
@@ -59,7 +59,7 @@ const SubCategoryPage = () => {
       filterVendorsBySubCategory(subCategoryId);
     } else {
       setSelectedSubCategory(null);
-      setFilteredVendors(vendors); // Show all vendors if no subcategory is selected
+      setFilteredVendors(vendors);
     }
   }, [subCategoryId, vendors]);
 
@@ -72,6 +72,10 @@ const SubCategoryPage = () => {
 
   const handleSubCategoryClick = (id) => {
     navigate(`/subcategory/${id}`);
+  };
+
+  const handleVendorDetailClick = (vendorId) => {
+    navigate(`/VendorDetailPage/${vendorId}`);
   };
 
   return (
@@ -90,7 +94,7 @@ const SubCategoryPage = () => {
             {filteredVendors.length > 0 ? (
               filteredVendors.map((vendor) => (
                 <div key={vendor._id} className='vendor-card'>
-                  <h2>{vendor.subcategory && vendor.subcategory.name}</h2>
+                  {/* <h2>{vendor.subcategory && vendor.subcategory.name}</h2> */}
                   <img
                     src={
                       vendor.businessImages && vendor.businessImages.length > 0
@@ -100,14 +104,13 @@ const SubCategoryPage = () => {
                     alt={vendor.businessname}
                   />
                   <div className='vendor-info'>
-                    {/* <h3>Business Name: {vendor.businessname}</h3> */}
                     <h3>
-                      {' '}
                       <div className='category-name'>
-                        {vendor.subcategory && vendor.subcategory.category
+                        <h2>{vendor.category && vendor.category.name}</h2>
+                        {/* {vendor.subcategory && vendor.subcategory.category
                           ? vendor.subcategory.category.name
-                          : 'No Category'}
-                      </div>{' '}
+                          : 'No Category'} */}
+                      </div>
                     </h3>
                     <p>
                       <b>Business Name:</b> {vendor.businessname}
@@ -115,7 +118,6 @@ const SubCategoryPage = () => {
                     <p>
                       <b>Description:</b> {vendor.businessdescription}
                     </p>
-                    {/* <p><b>Vendor Name:</b> {vendor.vendorid.firstName} {vendor.vendorid.lastName}</p> */}
                     <p>
                       <b>Email:</b> {vendor.vendorid.email}
                     </p>
@@ -123,53 +125,14 @@ const SubCategoryPage = () => {
                       <b>Business Address:</b>{' '}
                       {`${vendor.city}, ${vendor.province}, ${vendor.postalcode}`}
                     </p>
-                    {/* <p><b>Phone Number:</b> {vendor.vendorid.phonenumber}</p> */}
-                    <button>
+                    <button onClick={() => handleVendorDetailClick(vendor._id)}>
                       <b>View Vendor Details</b>
                     </button>
                   </div>
                 </div>
               ))
             ) : (
-              <>
-                <p>No vendors available for this subcategory.</p>
-                <h2>All Vendors</h2>
-                {vendors.map((vendor) => (
-                  <div key={vendor._id} className='vendor-card'>
-                    <img
-                      src={
-                        vendor.businessImages &&
-                        vendor.businessImages.length > 0
-                          ? vendor.businessImages[0]
-                          : 'https://via.placeholder.com/150'
-                      }
-                      alt={vendor.businessname}
-                    />
-                    <div className='vendor-info'>
-                      <h3>
-                        <div className='category-name'>
-                          {vendor.subcategory && vendor.subcategory.category
-                            ? vendor.subcategory.category.name
-                            : 'No Category'}
-                        </div>
-                      </h3>
-                      <p>
-                        <b>Business Address:</b>{' '}
-                        {`${vendor.city}, ${vendor.province}, ${vendor.postalcode}`}
-                      </p>
-                      <p>
-                        <b>Description:</b> {vendor.businessdescription}
-                      </p>
-                      <p>
-                        <b>Email:</b> {vendor.vendorid.email}
-                      </p>
-                      <button onClick={() => navigate('/VendorDetailPage')}>
-                        <b>View Vendor Details</b>
-                      </button>
-                    </div>
-                  </div>
-                ))}
-              </>
+              <p>No vendors available for this subcategory.</p>
             )}
           </div>
         </div>
