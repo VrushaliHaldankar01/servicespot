@@ -7,9 +7,9 @@ const Sidebar = ({ firstName, lastName }) => (
     <h1>Welcome {firstName} {lastName}</h1>
     <ul>
       <li><Link to="/Profile">My Profile</Link></li>
-      <li><Link to="/Inbox">My Inbox</Link></li>
-      <li><Link to="/Bookings">My Bookings</Link></li>
-      <li><Link to="/Help">Get Help</Link></li>
+      {/* <li><Link to="/Inbox">My Inbox</Link></li> */}
+      {/* <li><Link to="/Bookings">My Bookings</Link></li> */}
+      <li><Link to="/Contact">Get Help</Link></li>
     </ul>
   </div>
 );

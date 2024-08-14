@@ -1,18 +1,18 @@
-.sidebar {
+.subcategory-sidebar {
     width: 300px;
     background: #343a40;
     color: #fff;
     padding: 20px;
     height: 100vh;
     overflow-y: auto;
-}
-
-.subcategory-item {
+  }
+  
+  .subcategory-item {
     margin-bottom: 10px;
     cursor: pointer;
-}
-
-.subcategory-header {
+  }
+  
+  .subcategory-header {
     display: flex;
     align-items: center;
     padding: 10px;
@@ -20,31 +20,33 @@
     color: #323538;
     border-radius: 4px;
     transition: background 0.5s;
-}
-
-.subcategory-header:hover {
+  }
+  
+  .subcategory-header:hover {
     background: #b5b7b8;
-}
-
-.subcategory-image {
+  }
+  
+  .subcategory-image {
     width: 40px;
     height: 40px;
     margin-right: 10px;
     border-radius: 4px;
-}
-
-.subcategory-info {
+  }
+  
+  .subcategory-info {
     flex-grow: 1;
-}
-
-.subcategory-name {
+  }
+  
+  .subcategory-name {
     font-weight: bold;
-}
-.selected .subcategory-header {
-    background-color: #007bff; /* Highlight color for selected subcategory */
+  }
+  
+  .selected .subcategory-header {
+    background-color: #007bff;
     color: white;
-}
-.back-button {
+  }
+  
+  .back-button {
     display: block;
     margin-bottom: 20px;
     padding: 10px 20px;
@@ -55,26 +57,27 @@
     cursor: pointer;
     text-align: center;
     width: 100%;
-}
-
-.back-button:hover {
+  }
+  
+  .back-button:hover {
     background-color: #0056b3;
-}
-
-
-@media (max-width: 768px) {
-    .sidebar {
-        width: 100%;
-        height: auto; /* Adjust the height to fit content */
-        margin-bottom: 20px; /* Adds space below the sidebar */
+  }
+  
+  /* Responsive styles for screens with max-width: 768px */
+  @media (max-width: 768px) {
+    .subcategory-sidebar {
+      width: 100%;
+      height: auto;
+      margin-bottom: 20px;
     }
-
+  
     .subcategory-header {
-        flex-direction: column; /* Stacks the header content vertically */
-        align-items: flex-start; /* Aligns items to the start */
+      flex-direction: column;
+      align-items: flex-start;
     }
-
+  
     .subcategory-image {
-        margin: 0 auto 10px; /* Centers the image with margin below */
+      margin: 0 auto 10px;
     }
-}
+  }
+  

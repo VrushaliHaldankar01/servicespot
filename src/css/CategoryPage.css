@@ -12,7 +12,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-    height: 250px;
+    /* height: 250px; */
 }
 
 .subcategory-card {
@@ -20,7 +20,7 @@
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     width: calc(33.333% - 20px); /* Ensures three cards per row */
-    min-height: 300px; /* Sets a minimum height to maintain uniformity */
+    min-height: 200px; /* Sets a minimum height to maintain uniformity */
     padding: 20px;
     text-align: center;
     display: flex;

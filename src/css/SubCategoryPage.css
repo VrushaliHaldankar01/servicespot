@@ -1,32 +1,28 @@
 .subcategory-page {
   display: flex;
-  /* height: calc(100vh - 80px); */
-  /* overflow: hidden; */
+  flex-direction: column;
   background: linear-gradient(to bottom right, #3a2c2c, #fbd7d705);
 }
-.vendor-list {
-  max-height: 97vh; /* Set a maximum height for the vendor list */
-   /* Ensure the vendor list is scrollable */
+
+.subcategory-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
-.sidebar {
-  width: 250px; /* Assuming the width of the sidebar is 250px */
+
+.vendor-list {
+  max-height: 97vh;
+  overflow-y: auto;
 }
 
 .content {
   flex-grow: 1;
-  padding: 20px;
-  max-width: calc(100% - 250px); /* Adjust based on sidebar width */
+  padding: 30px;
   box-sizing: border-box;
-  /* overflow-y: auto; */
-  overflow-y: auto; /* Enable scrolling */
-  height: calc(100vh - 80px); /* Adjust height based on header and footer */
-  background: linear-gradient(to bottom right, #e6e6e6, #473f3f); /* Slightly darker gradient */
+  overflow-y: auto;
+  background: linear-gradient(to bottom right, #e6e6e6, #473f3f);
   border-radius: 8px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); 
-}
-
-.subcategory-details {
-  width: 100%;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .vendor-card {
@@ -42,11 +38,12 @@
   position: relative;
   overflow: hidden;
   min-height: 150px;
-  transition: transform 0.2s, box-shadow 0.2s; 
+  transition: transform 0.2s, box-shadow 0.2s;
 }
+
 .vendor-card:hover {
-  transform: translateY(-5px); /* Lift the card slightly on hover */
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Enhance shadow on hover */
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
 .vendor-card img {
@@ -61,13 +58,12 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding-right: 150px; /* Space for the button */
+  padding-right: 150px;
 }
 
 .vendor-info h3 {
   margin: 20px 0;
   font-size: 1.8em;
-  /* margin-bottom: 10px; */
 }
 
 .vendor-info p {
@@ -90,4 +86,54 @@
 
 .vendor-card button:hover {
   background-color: #0056b3;
+}
+
+/* Responsive styles for screens with max-width: 768px */
+@media (max-width: 768px) {
+  .subcategory-container {
+    flex-direction: column;
+  }
+
+  .subcategory-sidebar {
+    width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+  }
+
+  .content {
+    width: 100%;
+    padding: 15px;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-size: 1.5rem;
+  }
+
+  p, a {
+    font-size: 1rem;
+  }
+}
+
+/* Responsive styles for screens with max-width: 480px */
+@media (max-width: 480px) {
+  .subcategory-sidebar {
+    padding: 10px;
+  }
+
+  .content {
+    padding: 10px;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-size: 1.25rem;
+  }
+
+  p, a {
+    font-size: 0.9rem;
+  }
+
+  button {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
 }

@@ -15,7 +15,7 @@ const SubCategorySidebar = ({ subCategories, handleSubCategoryClick }) => {
         navigate('/categories');
     };
     return (
-        <div className="sidebar">
+        <div className="subcategory-sidebar">
             <button className='back-button' onClick={handleBackClick}>
                 Back to Categories
             </button>

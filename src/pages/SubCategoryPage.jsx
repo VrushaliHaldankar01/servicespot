@@ -80,8 +80,9 @@ const SubCategoryPage = () => {
 
   return (
     <div>
-      <Header />
       <div className='subcategory-page'>
+      <Header />
+      <div className='subcategory-container'>
         <SubCategorySidebar
           subCategories={subCategories}
           handleSubCategoryClick={handleSubCategoryClick}
@@ -171,6 +172,7 @@ const SubCategoryPage = () => {
             )}
           </div>
         </div>
+      </div>
       </div>
       </div>
       <Footer />
