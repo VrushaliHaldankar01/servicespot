@@ -215,6 +215,7 @@ const VendorRegister = () => {
         );
         console.log('rrr', response.error);
         navigate('/Login');
+        alert("Successfully Registered!!!")
       } catch (error) {
         console.error(
           'Error during registration:',
@@ -226,9 +227,9 @@ const VendorRegister = () => {
   };
 
   return (
-    <div>
+    <div className='vendor-register'>
       <Header />
-      <div className='container mt-4 mb-4' style={{ maxWidth: '700px' }}>
+      <div className='container mt-4 mb-4' style={{ maxWidth: '800px' }}>
         <div className='registration-box p-4 rounded'>
           <form onSubmit={handleSubmit} className='p-4 rounded'>
             <h3>Register as Vendor</h3>
@@ -444,7 +445,7 @@ const VendorRegister = () => {
               )}
             </div>
             {errors.general && <p className='text-danger'>{errors.general}</p>}
-            <button type='submit' className='btn btn-primary'>
+            <button type='submit' className='btn btn-dark submitbutton rounded-pill'>
               Register
             </button>
             <div className='text-center mt-3'>

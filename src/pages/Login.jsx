@@ -15,6 +15,8 @@ const Login = () => {
   const [error, setError] = useState('');
   const [errors, setErrors] = useState({}); 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -80,7 +82,8 @@ const Login = () => {
   return (
     <div className="d-flex flex-column">
       <Header />
-      <div className='container mt-4 mb-4 flex-grow-1' style={{ maxWidth: '700px' }}>
+      <div className="login-container"> {/* Apply the class here */}
+      <div className='container mt-4 mb-4 flex-grow-1' style={{ maxWidth: '900px' }}>
         <div className='registration-box p-4 rounded'>
           <form onSubmit={handleSubmit} className='p-4 rounded'>
             <h3>Login</h3>
@@ -97,13 +100,22 @@ const Login = () => {
             </div>
             <div className='form-group mb-3'>
               <label>Password</label>
-              <input
-                type='password'
-                className='form-control'
-                name='password'
-                value={formData.password}
-                onChange={handleChange}
-              />
+              <div className="input-group">
+                  <input
+                    type={showPassword ? 'text' : 'password'} // Toggle between 'text' and 'password'
+                    className='form-control'
+                    name='password'
+                    value={formData.password}
+                    onChange={handleChange}
+                  />
+                  <button
+                    type="button"
+                    className="btn btn-outline-secondary"
+                    onClick={() => setShowPassword(!showPassword)} // Toggle showPassword state
+                  >
+                    {showPassword ? 'Hide' : 'Show'}
+                  </button>
+                </div>
               {errors.password && <p className='text-danger'>{errors.password}</p>}
             </div>
             <div className='text-center'>
@@ -122,6 +134,7 @@ const Login = () => {
             </div>
           </form>
         </div>
+      </div>
       </div>
       <Footer/>
     </div>

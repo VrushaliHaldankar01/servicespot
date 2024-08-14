@@ -1,64 +1,56 @@
-/* Add these styles to UserRegisterModule.css */
-
-html, body {
-  /* height: 100%; */
-  margin: 0;
+/* Main container specific to Login page */
+.login-container {
+  position: relative;
+  background: url('/public/images/image.png') no-repeat center center fixed;
+  background-size: cover;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 
-/* .d-flex {
-  display: flex !important;
+/* Blur effect */
+.login-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: inherit;
+  filter: blur(8px);
+  z-index: 1;
 }
 
-.flex-column {
-  flex-direction: column !important;
-}
-
-.min-vh-100 {
-  min-height: 100vh !important;
-} */
-
-/* .flex-grow-1 {
-  flex-grow: 1 !important;
-} */
-.login-bg{
-  background: url('/public/images/image.png') no-repeat right top;
-
-}
-.container1 {
-  background: url('/public/images/image.png') no-repeat right top;
-
-margin-left: 10px;
-max-height: 1200vh;
-display: center;
-}
-
+/* Content box that sits on top of the blurred background */
 .registration-box {
-  background-color: #fff;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  /* width: 100%; */
-  border: #fff;
+  position: relative;
+  width: 80%;
+  z-index: 2;
+  background-color: rgba(255, 255, 255, 0.85); /* Semi-transparent white */
   padding: 20px;
-  background: url('/public/images/image.png') no-repeat right top;
-
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
-
-.submitbutton {
+.login-container .submitbutton {
   width: 100%;
 }
+/* Ensuring text and other content are clearly visible */
+.registration-box h3,
+.registration-box label,
+.registration-box input,
+.registration-box p,
+.registration-box .alert {
+  color: #333;
+}
 
+/* Mobile view adjustments */
 @media (max-width: 768px) {
-  .container {
-    max-height: 1200px;
+  .login-container {
+    background-size: cover;
   }
   .registration-box {
-    padding: 10px;
-  }
-  .submitbutton {
-    width: 100%;
-  }
-  .form-group,
-  .form-check,
-  .text-center {
-    width: 100%;
+    padding: 15px;
   }
 }

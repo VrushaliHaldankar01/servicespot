@@ -84,6 +84,7 @@ const UserRegister = () => {
         );
         console.log(response.data);
         setError('');
+        alert("New User registered SUccessfull!!!");
         navigate('/Login');
         // Handle success (e.g., redirect user, update state)
       } catch (error) {
@@ -98,14 +99,14 @@ const UserRegister = () => {
   };
 
   return (
-    <div>
+    <div className='user-register'>
       <Header />
-      <div className='container mt-4 mb-4' style={{ maxWidth: '700px' }}>
+      <div className='container mt-4 mb-4' style={{ maxWidth: '900px' }}>
         <div className='registration-box p-4 rounded'>
           <form onSubmit={handleSubmitRegistration} className='p-4 rounded'>
-            <h3>Register as User</h3>
+            <h3 className='text-center'>Register as User</h3>
             <div className='row'>
-              <div className='col mb-3'>
+              <div className='col-md-6 mb-3'>
                 <label>First Name</label>
                 <input
                   type='text'
@@ -119,7 +120,7 @@ const UserRegister = () => {
                   <p className='text-danger'>{errors.firstName}</p>
                 )}
               </div>
-              <div className='col mb-3'>
+              <div className='col-md-6 mb-3'>
                 <label>Last Name</label>
                 <input
                   type='text'
@@ -150,7 +151,7 @@ const UserRegister = () => {
               )}
             </div>
 
-            <div className='form-group mb-3'>
+            <div className=' mb-3'>
               <label>Email</label>
               <input
                 type='email'
@@ -165,7 +166,7 @@ const UserRegister = () => {
               )}
             </div>
 
-            <div className='form-group mb-3'>
+            <div className='mb-3'>
               <label>Password</label>
               <input
                 type='password'

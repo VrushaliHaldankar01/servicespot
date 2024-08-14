@@ -8,24 +8,24 @@
 .search-container input {
   flex: 1;
   padding: 8px;
-  border: 1px solid #ccc;
+  border: 1px solid #504e4e;
   border-radius: 4px 0 0 4px;
   font-size: 16px;
 }
 
 .search-container .search-button {
   padding: 8px 16px;
-  border: 1px solid #ccc;
+  border: 1px solid #636060;
   border-left: none; /* Remove border between input and button */
   border-radius: 0 4px 4px 0;
-  /* background-color: #007bff; */
-  color: rgb(16, 16, 16);
+  background-color: #0e0e0f;
+  color: rgb(244, 241, 241);
   font-size: 16px;
   cursor: pointer;
 }
 
 .search-container .search-button:hover {
-  background-color: #e8ebef;
+  background-color: #2c3d4f;
 }
 
 .suggestions-list {
@@ -37,7 +37,7 @@
   max-height: 200px;
   overflow-y: auto;
   position: absolute;
-  background-color: white;
+  background-color: rgb(43, 40, 40);
   width: 100%;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -49,4 +49,42 @@
 
 .suggestions-list li:hover {
   background-color: #f1f1f1;
+}
+/* Responsive Styles */
+
+/* For screens less than 768px */
+@media (max-width: 768px) {
+  .search-container input {
+    font-size: 14px;
+    padding: 10px;
+    border-radius: 4px;
+    width: 40%;
+  }
+
+  .search-container .search-button {
+    font-size: 14px;
+    padding: 8px 12px;
+    width:20%;
+  }
+}
+
+/* For screens up to 480px */
+@media (max-width: 480px) {
+  .search-container {
+    flex-direction: column;
+  }
+
+  .search-container input {
+    width: 50px; /* Full width input field */
+    font-size: 16px;
+    padding: 12px;
+    margin-bottom: 10px;
+    border-radius: 4px; /* Rounded corners */
+  }
+
+  .search-container .search-button {
+    width: 20px; /* Full width button */
+    font-size: 14px; /* Smaller font size */
+    padding: 10px; /* Reduced padding */
+  }
 }

@@ -1,9 +1,10 @@
 .category-page {
     display: flex;
     background: #f9f9f9;
-    margin-bottom: auto;
+    margin-bottom: 30px;
     flex-wrap: wrap;
-    min-height: 100vh;
+    /* min-height: calc(100vh - 100px); */
+    /* min-height: 100vh; */
 }
 
 .category-content {
@@ -12,7 +13,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-    /* height: 250px; */
+    max-height: 150px;
 }
 
 .subcategory-card {
@@ -20,7 +21,7 @@
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     width: calc(33.333% - 20px); /* Ensures three cards per row */
-    min-height: 200px; /* Sets a minimum height to maintain uniformity */
+    min-height: 150px; /* Sets a minimum height to maintain uniformity */
     padding: 20px;
     text-align: center;
     display: flex;
@@ -70,11 +71,28 @@
 
     .sidebar {
         width: 100%;
-        height: auto;
+        /* height: auto; */
         margin-bottom: 20px; /* Adds some space between the sidebar and content */
     }
 
     .subcategory-card {
         width: 100%; /* Each card takes full width on smaller screens */
+    }
+    .subcategory-card img {
+        width: 30%; /* Reduce the image size */
+        height: auto; /* Maintain aspect ratio */
+        border-radius: 50%; /* Ensure the image remains circular */
+    }
+
+    .subcategory-card h3 {
+        font-size: 1.5em; /* Increase heading size */
+    }
+
+    .subcategory-card p {
+        font-size: 1em; /* Increase description size */
+    }
+
+    .subcategory-card button {
+        padding: 12px 18px; /* Slightly larger button for better touch interaction */
     }
 }

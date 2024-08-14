@@ -87,7 +87,7 @@ const SubCategoryPage = () => {
           subCategories={subCategories}
           handleSubCategoryClick={handleSubCategoryClick}
         />
-        <div className='content'>
+        <div className='subcategory-content'>
           <div className='subcategory-details'>
             <h1>
               {selectedSubCategory ? selectedSubCategory.name : 'All Vendors'}

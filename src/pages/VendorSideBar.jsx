@@ -1,16 +1,16 @@
-// DashSidebar.jsx
+// VendorSideBar.jsx
 import React from 'react';
 import './VendorSidebar.css'; // Import the custom CSS for styling
 
 const VendorSideBar = ({ setActiveComponent, activeComponent }) => {
-  const vendorName = "John Doe"; // Replace with dynamic data as needed
+  const vendorName = "Vendor"; // Replace with dynamic data as needed
 
   return (
-    <div className="sidebar">
-      <div className="sidebar-header">
+    <div className="vendor-sidebar">
+      <div className="vendor-sidebar-header">
         <h2>Welcome, {vendorName}!</h2>
       </div>
-      <div className="sidebar-content">
+      <div className="vendor-sidebar-content">
         <ul>
           <li>
             <button 
@@ -29,12 +29,12 @@ const VendorSideBar = ({ setActiveComponent, activeComponent }) => {
             </button>
           </li>
           <li>
-            <button 
+            {/* <button 
               className={activeComponent === 'messages' ? 'active' : ''}
               onClick={() => setActiveComponent('messages')}
             >
               Messages
-            </button>
+            </button> */}
           </li>
           <li>
             <button 

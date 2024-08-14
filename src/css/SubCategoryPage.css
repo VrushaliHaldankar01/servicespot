@@ -1,3 +1,4 @@
+/* Common styles for both desktop and mobile */
 .subcategory-page {
   display: flex;
   flex-direction: column;
@@ -15,7 +16,7 @@
   overflow-y: auto;
 }
 
-.content {
+.subcategory-content {
   flex-grow: 1;
   padding: 30px;
   box-sizing: border-box;
@@ -91,49 +92,115 @@
 /* Responsive styles for screens with max-width: 768px */
 @media (max-width: 768px) {
   .subcategory-container {
-    flex-direction: column;
+      flex-direction: column;
   }
 
-  .subcategory-sidebar {
-    width: 100%;
-    height: auto;
-    margin-bottom: 20px;
+  .subcategory-content {
+      width: 100%;
+      padding: 15px;
   }
 
-  .content {
-    width: 100%;
-    padding: 15px;
+  .vendor-card {
+      flex-direction: column;
+      align-items: center;
+      text-align: left;
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    font-size: 1.5rem;
+  .vendor-card img {
+      width: 70px;
+      height: 70px;
+      margin: 0 0 10px 0;
   }
 
-  p, a {
+  .vendor-info {
+      padding-right: 0;
+  }
+  .vendor-info h3 {
+    margin-top: 10px;
+    font-size: 1.2rem;
+}
+
+.vendor-info p {
     font-size: 1rem;
+    margin: 5px 0;
+}
+  .vendor-card button {
+      position: relative;
+      right: 0;
+      margin-top: 30px;
+      /* padding: 8px 20px; */
+      font-size: 1rem;
   }
 }
 
 /* Responsive styles for screens with max-width: 480px */
 @media (max-width: 480px) {
   .subcategory-sidebar {
-    padding: 10px;
+      width: 100%;
+      height: auto;
+      margin-bottom: 20px;
   }
 
-  .content {
-    padding: 10px;
+  .subcategory-content {
+      padding: 10px;
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    font-size: 1.25rem;
+  .vendor-card {
+      flex-direction: column;
+      align-items: center;
+      text-align: left;
   }
 
-  p, a {
-    font-size: 0.9rem;
+  .vendor-card img {
+      width: 20px;
+      height: 20px;
+      margin-bottom: 10px;
   }
 
-  button {
-    padding: 10px;
-    font-size: 0.9rem;
+  .vendor-info h3 {
+    margin-top: 8px;
+      font-size: 1.5em;
+  }
+
+  .vendor-info p {
+      font-size: 1rem;
+      margin: 4px 0;
+  }
+
+  .vendor-card button {
+      width: 100%;
+      padding: 6px 15px;
+      font-size: 0.9rem;
+      position: relative;
+      right: 0;
+      bottom: 0;
+  }
+}
+@media (max-width: 480px) {
+  .category-page {
+      padding: 10px; /* Reduce padding to make more room for content */
+  }
+
+  .subcategory-card {
+      padding: 15px; /* Reduce padding inside the card */
+  }
+
+  .subcategory-card img {
+      width: 40%; /* Increase the image size slightly for better visibility */
+      height: auto; /* Maintain aspect ratio */
+      border-radius: 50%;
+  }
+
+  .subcategory-card h3 {
+      font-size: 1.3em; /* Slightly reduce heading size */
+  }
+
+  .subcategory-card p {
+      font-size: 0.9em; /* Reduce description size to fit more content */
+  }
+
+  .subcategory-card button {
+      padding: 10px 14px; /* Slightly reduce button padding */
+      font-size: 0.9em; /* Reduce button font size for smaller screens */
   }
 }

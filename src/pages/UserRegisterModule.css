@@ -1,31 +1,68 @@
-.registration-box {
-  background-color: #85848486;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  /* max-width: 1200px; */
-  width: 100%;
-  border: #ffffff1b;
+/* Scope the container and background to the user-register component */
+.user-register .container {
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 10px;
   padding: 20px;
 }
 
+/* Gradient effect for the form within user-register */
+.user-register .registration-box {
+  background: linear-gradient(135deg, #a08498, #462b44);
+  color: #fff; /* Ensure form text is white */
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+  border-radius: 15px;
+  padding: 30px;
+}
 
-.submitbutton{
-  /* width:400px; */
+/* Ensure form elements text color is white */
+.user-register .registration-box label,
+.user-register .registration-box input,
+.user-register .registration-box p {
+  color: #171515; /* Set text color to white */
+}
+
+/* Submit button styling within user-register */
+.user-register .submitbutton {
   width: 100%;
-  
+  background-color: #08080a;
+  background-image: linear-gradient(315deg, #1c111a 0%, #1a1719 74%);
+  border: 2px solid rgb(62, 58, 58);
+  color: white;
+  font-weight: bold;
+}
+
+.user-register .submitbutton:hover {
+  background-image: linear-gradient(315deg, #8f94fb 0%, #4e54c8 74%);
+}
+/* Responsive layout for the form fields */
+.user-register .row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.user-register .col-md-6 {
+  flex: 1 1 calc(50% - 15px);
 }
 /* Media query for smaller screens */
 @media (max-width: 768px) {
-.registration-box {
-  padding: 10px;
-}
+  .user-register .col-md-6 {
+    flex: 1 1 100%;
+  }
+  .user-register .registration-box {
+    padding: 15px;
+  }
 
-.submitbutton {
-  width: 100%;
-}
-.form-group,
-.form-check,
-.text-center,
-.row > .col {
-  width: 100%;
-}
+  .user-register .submitbutton {
+    width: 100%;
+  }
+
+  .user-register .form-group,
+  .user-register .form-check,
+  .user-register .text-center,
+  .user-register .row > .col {
+    width: 100%;
+  }
 }

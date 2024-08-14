@@ -1,3 +1,4 @@
+// VendorDashboard.jsx
 import React, { useState } from 'react';
 import OrderList from './OrderList';
 import Messages from './Messages';
@@ -9,6 +10,7 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import styles from './VendorDashboard.module.css';
 import VendorSideBar from './VendorSideBar';
+import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
 
 const VendorDashboard = () => {
   const [activeComponent, setActiveComponent] = useState('dashboard');
@@ -23,7 +25,6 @@ const VendorDashboard = () => {
   const [date, setDate] = useState(new Date());
 
   const availableDates = [
-    
     '2024-07-27',
     '2024-07-29',
     '2024-08-01',
@@ -57,7 +58,7 @@ const VendorDashboard = () => {
     <div className={styles['vd-vendor-dashboard']}>
       <Header />
       <div className={styles['vd-dashboard-container']}>
-        <VendorSideBar className={styles['vd-sidebar']} setActiveComponent={setActiveComponent} />
+        <VendorSideBar className={styles['vendor-sidebar']} setActiveComponent={setActiveComponent} />
         <div className={styles['vd-dashboard-section']}>
           {activeComponent === 'dashboard' && (
             <>
@@ -67,12 +68,14 @@ const VendorDashboard = () => {
                   <span className={styles['vd-toggle-icon']}>{isCatalogueOpen ? '▲' : '▼'}</span>
                 </div>
                 {isCatalogueOpen && (
-                  <div className={styles['vd-services-card-container']}>
+                  <div className="row">
                     {services.map((service, index) => (
-                      <div className={styles['vd-service-card']} key={index}>
-                        <h4 className={styles['vd-service-name']}>{service.name}</h4>
-                        <p className={styles['vd-service-description']}>{service.description}</p>
-                        <p className={styles['vd-service-price']}><strong>Price:</strong> ${service.price}</p>
+                      <div className="col-md-4 mb-4" key={index}>
+                        <div className={styles['vd-service-card']}>
+                          <h4 className={styles['vd-service-name']}>{service.name}</h4>
+                          <p className={styles['vd-service-description']}>{service.description}</p>
+                          <p className={styles['vd-service-price']}><strong>Price:</strong> ${service.price}</p>
+                        </div>
                       </div>
                     ))}
                   </div>
