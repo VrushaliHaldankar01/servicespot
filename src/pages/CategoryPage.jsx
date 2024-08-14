@@ -107,7 +107,7 @@ const CategoryPage = () => {
           expandedCategoryId={expandedCategoryId}
           handleCategoryClick={handleCategoryClick}
         />
-        <div className='content'>
+        <div className='category-content'>
           {filteredSubCategories.slice(0, 6).map((subCategory) => (
             <div key={subCategory._id} className='subcategory-card' onClick={() => handleSubCategoryClick(subCategory)}>
               <img

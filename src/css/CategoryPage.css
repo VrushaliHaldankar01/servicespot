@@ -3,10 +3,10 @@
     background: #f9f9f9;
     margin-bottom: auto;
     flex-wrap: wrap;
-    /* min-height: 100vh; */
+    min-height: 100vh;
 }
 
-.content {
+.category-content {
     flex: 1;
     padding: 20px;
     display: flex;
@@ -61,13 +61,7 @@
     background: #6f7274;
 }
 
-.category-content {
-    padding: 20px;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    width: 100%; /* Ensures the content takes full width */
-}
+
 
 @media (max-width: 768px) {
     .category-page {

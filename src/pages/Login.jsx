@@ -48,6 +48,7 @@ const Login = () => {
         email: formData.email,
         password: formData.password,
       });
+      localStorage.setItem('vendorId', response.data.user._id);
       console.log('Login Response', response.data);
       localStorage.setItem('user', JSON.stringify(response.data.user));
       localStorage.setItem('email', response.data.user.email); // Store email in local storage

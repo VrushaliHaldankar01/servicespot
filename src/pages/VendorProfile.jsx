@@ -3,152 +3,197 @@ import axios from 'axios';
 import './VendorProfile.css';
 
 const VendorProfile = () => {
-  const [profile, setProfile] = useState(null);
-  const [editMode, setEditMode] = useState(false);
-  const [formValues, setFormValues] = useState({});
+  const [vendor, setVendor] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [files, setFiles] = useState(null); // State for file uploads
+
+  // Replace with the actual vendor id you get after login
+  const vendorId = localStorage.getItem('vendorId');
 
   useEffect(() => {
-    const fetchProfile = async () => {
-      const vendorId = localStorage.getItem('user'); // Replace 'user' if you're storing a different key
+    const fetchVendorData = async () => {
       try {
-        const response = await axios.get(`http://localhost:4000/vendor/vendorDetails?id=${vendorId}`);
-        const data = response.data[0]; // Assuming the API returns an array with a single vendor object
-        setProfile(data);
-        setFormValues({
-          name: `${data.vendorid.firstName} ${data.vendorid.lastName}`,
-          email: data.vendorid.email,
-          phone: data.vendorid.phonenumber,
-          address: data.address || '',
-          businessName: data.businessname,
-          businessDescription: data.businessdescription,
-          province: data.province,
-          city: data.city,
-          postalCode: data.postalcode,
-          businessNumber: data.businessnumber,
-          businessCategory: data.category.name,
-          businessSubcategory: data.subcategory.name,
-          businessImage: data.businessImages[0],
-        });
-      } catch (error) {
-        console.error('Error fetching profile:', error);
+        const response = await axios.get(
+          `http://localhost:4000/vendor/vendorDetails?vendorid=${vendorId}`
+        );
+        setVendor(response.data[0]);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setLoading(false);
       }
     };
 
-    fetchProfile();
-  }, []);
+    fetchVendorData();
+  }, [vendorId]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormValues({ ...formValues, [name]: value });
+    setVendor((prevVendor) => ({
+      ...prevVendor,
+      [name]: value,
+    }));
   };
 
-  const handleSave = async () => {
+  const handleFileChange = (e) => {
+    setFiles(e.target.files); // Store the selected files
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
     try {
-      const response = await axios.post('http://localhost:4000/vendor/updateProfile', formValues);
-      if (response.status === 200) {
-        setProfile(formValues);
-        setEditMode(false);
-      } else {
-        console.error('Failed to update profile');
+      const formData = new FormData();
+
+      // Append form fields
+      for (const key in vendor) {
+        if (vendor.hasOwnProperty(key)) {
+          formData.append(key, vendor[key]);
+        }
       }
-    } catch (error) {
-      console.error('Error updating profile:', error);
+
+      // Append files if there are new files selected
+      if (files && files.length > 0) {
+        for (const file of files) {
+          formData.append('businessImages', file);
+        }
+      }
+
+      // Log the form data for debugging
+      console.log('FormData content:');
+      for (const [key, value] of formData.entries()) {
+        console.log(`${key}: ${value}`);
+      }
+
+      // Make the API request
+      const response = await axios.put(
+        `http://localhost:4000/user/editUser/${vendorId}`,
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
+
+      console.log('Vendor data submitted:', response.data);
+
+      // Assuming you also need to log updated user and vendor data
+      console.log('Updated User:', response.data.updatedUser);
+      console.log('Updated Vendor:', response.data.updatedVendor);
+
+      // Optionally, handle success (e.g., show a success message)
+    } catch (err) {
+      console.error('Error updating vendor profile:', err);
+      // Optionally, handle error (e.g., show an error message)
     }
   };
 
-  const handleCancel = () => {
-    setFormValues(profile);
-    setEditMode(false);
-  };
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error fetching vendor data: {error.message}</p>;
 
   return (
-    <div className="vendor-profile">
-      <h3>Vendor Profile</h3>
-      {profile ? (
-        <div className="profile-details">
-          {editMode ? (
-            <div className="profile-form">
-              <label>
-                Name:
-                <input type="text" name="name" value={formValues.name} onChange={handleChange} />
-              </label>
-              <label>
-                Email:
-                <input type="email" name="email" value={formValues.email} onChange={handleChange} />
-              </label>
-              <label>
-                Phone:
-                <input type="text" name="phone" value={formValues.phone} onChange={handleChange} />
-              </label>
-              <label>
-                Address:
-                <input type="text" name="address" value={formValues.address} onChange={handleChange} />
-              </label>
-              <label>
-                Business Name:
-                <input type="text" name="businessName" value={formValues.businessName} onChange={handleChange} />
-              </label>
-              <label>
-                Business Description:
-                <input type="text" name="businessDescription" value={formValues.businessDescription} onChange={handleChange} />
-              </label>
-              <label>
-                Province:
-                <input type="text" name="province" value={formValues.province} onChange={handleChange} />
-              </label>
-              <label>
-                City:
-                <input type="text" name="city" value={formValues.city} onChange={handleChange} />
-              </label>
-              <label>
-                Postal Code:
-                <input type="text" name="postalCode" value={formValues.postalCode} onChange={handleChange} />
-              </label>
-              <label>
-                Business Number:
-                <input type="text" name="businessNumber" value={formValues.businessNumber} onChange={handleChange} />
-              </label>
-              <label>
-                Business Category:
-                <input type="text" name="businessCategory" value={formValues.businessCategory} onChange={handleChange} />
-              </label>
-              <label>
-                Business Subcategory:
-                <input type="text" name="businessSubcategory" value={formValues.businessSubcategory} onChange={handleChange} />
-              </label>
-              <label>
-                Business Image URL:
-                <input type="text" name="businessImage" value={formValues.businessImage} onChange={handleChange} />
-              </label>
-              <button onClick={handleSave}>Save</button>
-              <button onClick={handleCancel}>Cancel</button>
-            </div>
-          ) : (
-            <div className="profile-info">
-              <div><strong>Name:</strong> {profile.vendorid.firstName} {profile.vendorid.lastName}</div>
-              <div><strong>Email:</strong> {profile.vendorid.email}</div>
-              <div><strong>Phone:</strong> {profile.vendorid.phonenumber}</div>
-              <div><strong>Address:</strong> {profile.address}</div>
-              <div><strong>Business Name:</strong> {profile.businessname}</div>
-              <div><strong>Business Description:</strong> {profile.businessdescription}</div>
-              <div><strong>Province:</strong> {profile.province}</div>
-              <div><strong>City:</strong> {profile.city}</div>
-              <div><strong>Postal Code:</strong> {profile.postalcode}</div>
-              <div><strong>Business Number:</strong> {profile.businessnumber}</div>
-              <div><strong>Business Category:</strong> {profile.category.name}</div>
-              <div><strong>Business Subcategory:</strong> {profile.subcategory.name}</div>
-              {profile.businessImages.length > 0 && (
-                <div><strong>Business Image:</strong> <img src={profile.businessImages[0]} alt="Business" /></div>
+    <div className='vendor-profile'>
+      {vendor && (
+        <form onSubmit={handleSubmit}>
+          <div className='form-group'>
+            <label htmlFor='businessname'>Business Name</label>
+            <input
+              type='text'
+              id='businessname'
+              name='businessname'
+              value={vendor.businessname || ''}
+              onChange={handleChange}
+            />
+          </div>
+          <div className='form-group'>
+            <label htmlFor='businessdescription'>Business Description</label>
+            <textarea
+              id='businessdescription'
+              name='businessdescription'
+              value={vendor.businessdescription || ''}
+              onChange={handleChange}
+            />
+          </div>
+          <div className='form-group'>
+            <label htmlFor='province'>Province</label>
+            <input
+              type='text'
+              id='province'
+              name='province'
+              value={vendor.province || ''}
+              onChange={handleChange}
+            />
+          </div>
+          <div className='form-group'>
+            <label htmlFor='city'>City</label>
+            <input
+              type='text'
+              id='city'
+              name='city'
+              value={vendor.city || ''}
+              onChange={handleChange}
+            />
+          </div>
+          <div className='form-group'>
+            <label htmlFor='postalcode'>Postal Code</label>
+            <input
+              type='text'
+              id='postalcode'
+              name='postalcode'
+              value={vendor.postalcode || ''}
+              onChange={handleChange}
+            />
+          </div>
+          <div className='form-group'>
+            <label htmlFor='businessnumber'>Business Number</label>
+            <input
+              type='text'
+              id='businessnumber'
+              name='businessnumber'
+              value={vendor.businessnumber || ''}
+              onChange={handleChange}
+            />
+          </div>
+          <div className='form-group'>
+            <label>Category</label>
+            <p>{vendor.category ? vendor.category.name : 'N/A'}</p>
+          </div>
+          <div className='form-group'>
+            <label>Subcategory</label>
+            <p>{vendor.subcategory ? vendor.subcategory.name : 'N/A'}</p>
+          </div>
+          <div className='form-group'>
+            <label htmlFor='businessImages'>Business Images</label>
+            <input
+              type='file'
+              id='businessImages'
+              name='businessImages'
+              multiple
+              onChange={handleFileChange}
+            />
+            <div className='image-gallery'>
+              {vendor.businessImages && vendor.businessImages.length > 0 ? (
+                vendor.businessImages.map((image, index) => (
+                  <img
+                    key={index}
+                    src={image}
+                    alt={`Business ${index}`}
+                    className='business-image'
+                  />
+                ))
+              ) : (
+                <p>No images available</p>
               )}
-              <button onClick={() => setEditMode(true)}>Edit Profile</button>
             </div>
-          )}
-        </div>
-      ) : (
-        <p>Loading profile...</p>
+          </div>
+          <button type='submit'>Update Profile</button>
+        </form>
       )}
     </div>
   );
 };
 
 export default VendorProfile;
+ 

@@ -1,51 +1,66 @@
-.vendor-detail-container {
-    display: flex;
-    padding: 20px;
-    gap: 20px;
-    background-color: #f5f5f5;
-  }
-  
-  .vendor-detail-content {
-    flex: 1;
-    background-color: white;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-  }
-  
-  .vendor-title {
-    font-size: 28px;
-    color: #333;
-    margin-bottom: 20px;
-  }
-  
-  .vendor-image {
-    width: 100%;
-    max-width: 400px;
-    height: auto;
-    margin-bottom: 20px;
-    border-radius: 8px;
-  }
-  
-  .vendor-info p {
-    font-size: 16px;
-    color: #555;
-    margin-bottom: 10px;
-  }
-  
-  .contact-button {
-    margin-top: 20px;
-    padding: 12px 24px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s;
-  }
-  
-  .contact-button:hover {
-    background-color: #0056b3;
-  }
-  
+.vendor-detail-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  position: relative;
+}
+
+.view-subcategories-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: #4CAF50;
+  color: white;
+  padding: 20px 20px;
+  border: none;
+  cursor: pointer;
+}
+
+.vendor-info-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid #ccc;
+  padding: 20px;
+  width: 60%; /* Adjust width as needed */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.business-image {
+  text-align: center;
+}
+
+.business-image img {
+  max-width: 150px;
+  margin-bottom: 20px;
+  border-radius: 50%; /* Optional: Makes the image circular */
+}
+
+.vendor-details {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.vendor-column, .business-column {
+  width: 45%;
+  text-align: left;
+  margin-left: 20px;
+}
+
+.contact-vendor-button {
+  margin-top: 20px;
+  background-color: #007BFF;
+  color: white;
+  padding: 15px 30px; /* Increased size */
+  text-align: center;
+  text-decoration: none;
+  border-radius: 5px;
+  display: inline-block;
+}
+
+.contact-vendor-button:hover {
+  background-color: #0056b3;
+}

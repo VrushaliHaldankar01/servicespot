@@ -19,7 +19,7 @@
     background: #f6f7f8;
     color: #323538;
     border-radius: 4px;
-    transition: background 0.3s;
+    transition: background 0.5s;
 }
 
 .subcategory-header:hover {
@@ -39,6 +39,10 @@
 
 .subcategory-name {
     font-weight: bold;
+}
+.selected .subcategory-header {
+    background-color: #007bff; /* Highlight color for selected subcategory */
+    color: white;
 }
 .back-button {
     display: block;

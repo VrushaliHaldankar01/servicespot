@@ -1,4 +1,3 @@
-//wprkingcode
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -74,11 +73,10 @@ const SubCategoryPage = () => {
   const handleSubCategoryClick = (id) => {
     navigate(`/subcategory/${id}`);
   };
+
   const handleVendorDetailClick = (vendorId) => {
     navigate(`/VendorDetailPage/${vendorId}`);
   };
-
-
 
   return (
     <div>
@@ -93,10 +91,10 @@ const SubCategoryPage = () => {
             <h1>
               {selectedSubCategory ? selectedSubCategory.name : 'All Vendors'}
             </h1>
+            <div className='vendor-list'>
             {filteredVendors.length > 0 ? (
-              filteredVendors.map((vendor) => (
+              filteredVendors.slice(0, 3).map((vendor) => (
                 <div key={vendor._id} className='vendor-card'>
-                  {/* <h2>{vendor.subcategory && vendor.subcategory.name}</h2> */}
                   <img
                     src={
                       vendor.businessImages && vendor.businessImages.length > 0
@@ -131,10 +129,49 @@ const SubCategoryPage = () => {
                 </div>
               ))
             ) : (
-              <p>No vendors available for this subcategory.</p>
+              <>
+                <p>No vendors available for this subcategory.</p>
+                <h2>All Vendors</h2>
+                {vendors.map((vendor) =>  (
+                  <div key={vendor._id} className='vendor-card'>
+                    <img
+                      src={
+                        vendor.businessImages && vendor.businessImages.length > 0
+                          ? vendor.businessImages[0]
+                          : 'https://via.placeholder.com/150'
+                      }
+                      alt={vendor.businessname}
+                    />
+                    <div className='vendor-info'>
+                      <h3>
+                        <div className='category-name'>
+                          <h2>{vendor.category && vendor.category.name}</h2>
+                        </div>
+                      </h3>
+                      <p>
+                        <b>Business Name:</b> {vendor.businessname}
+                      </p>
+                      <p>
+                        <b>Description:</b> {vendor.businessdescription}
+                      </p>
+                      <p>
+                        <b>Email:</b> {vendor.vendorid.email}
+                      </p>
+                      <p>
+                        <b>Business Address:</b>{' '}
+                        {`${vendor.city}, ${vendor.province}, ${vendor.postalcode}`}
+                      </p>
+                      <button onClick={() => handleVendorDetailClick(vendor._id)}>
+                        <b>View Vendor Details</b>
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </>
             )}
           </div>
         </div>
+      </div>
       </div>
       <Footer />
     </div>

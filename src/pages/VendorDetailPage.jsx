@@ -1,110 +1,73 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import '../css/VendorDetailPage.css';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import SubCategorySidebar from '../components/SubCategorySidebar'; // Import the Sidebar component
-import '../css/VendorDetailPage.css'; // Import the CSS file
 
 const VendorDetailPage = () => {
-  const { vendorId } = useParams(); // Get the vendor ID from the URL
-  const [vendorDetails, setVendorDetails] = useState(null);
-  const [error, setError] = useState(null);
-  const navigate = useNavigate();
+  const { vendorId } = useParams(); // Get vendor ID from URL params
+  const [vendor, setVendor] = useState(null);
+  const navigate = useNavigate(); // Hook to handle navigation
 
   useEffect(() => {
-    const fetchVendorDetails = async () => {
-      try {
-        const response = await axios.get(
-          `http://localhost:4000/vendor/vendorDetails?id=${vendorId}`
-        );
-
-        // Assuming response.data is an array with one object
-        if (Array.isArray(response.data) && response.data.length > 0) {
-          setVendorDetails(response.data[0]); // Extract the first object
-        } else {
-          setError('No vendor details found.');
-        }
-      } catch (error) {
+    // Fetch vendor details using vendorId
+    axios
+      .get(`http://localhost:4000/vendor/vendorDetails?id=${vendorId}`)
+      .then((response) => {
+        setVendor(response.data[0]); // Assuming response is an array, get the first item
+      })
+      .catch((error) => {
         console.error('Error fetching vendor details:', error);
-        setError('Failed to load vendor details.');
-      }
-    };
-    fetchVendorDetails();
+      });
   }, [vendorId]);
 
-  const handleSubCategoryClick = (subCategoryId) => {
-    // Handle the subcategory click event
-    navigate(`/subcategory/${subCategoryId}`);
+  if (!vendor) {
+    return <div>Loading...</div>;
+  }
+
+  const handleViewSubCategories = () => {
+    console.log(vendor.subcategoryid);
+    navigate(`/subcategory/${vendor.subcategoryid}`); // Navigate to the specific subcategory page
   };
 
-  if (error) {
-    return <p>{error}</p>;
-  }
-
-  if (!vendorDetails) {
-    return <p>Loading vendor details...</p>;
-  }
-
   return (
-    <div>
+    <>
       <Header />
-      <div className='vendor-detail-container'>
-        <SubCategorySidebar
-          subCategories={
-            vendorDetails.subcategory ? [vendorDetails.subcategory] : []
-          }
-          handleSubCategoryClick={handleSubCategoryClick}
-        />
-        <div className='vendor-detail-content'>
-          <h1 className='vendor-title'>{vendorDetails.businessname}</h1>
-          <img
-            src={
-              vendorDetails.businessImages &&
-              vendorDetails.businessImages.length > 0
-                ? vendorDetails.businessImages[0]
-                : 'https://via.placeholder.com/150'
-            }
-            alt={vendorDetails.businessname}
-            className='vendor-image'
-          />
-          <div className='vendor-info'>
-            <p>
-              <b>Description:</b> {vendorDetails.businessdescription}
-            </p>
-            <p>
-              <b>Category:</b> {vendorDetails.category?.name}
-            </p>
-            <p>
-              <b>Subcategory:</b> {vendorDetails.subcategory?.name}
-            </p>
-            <p>
-              <b>Business Number:</b> {vendorDetails.businessnumber}
-            </p>
-            <p>
-              <b>Email:</b> {vendorDetails.vendorid?.email}
-            </p>
-            <p>
-              <b>Phone Number:</b> {vendorDetails.vendorid?.phonenumber}
-            </p>
-            <p>
-              <b>Business Address:</b>{' '}
-              {`${vendorDetails.city}, ${vendorDetails.province}, ${vendorDetails.postalcode}`}
-            </p>
+      <div className="vendor-detail-page">
+        <button 
+          className="view-subcategories-button" 
+          onClick={handleViewSubCategories}
+        >
+          View Sub-Categories
+        </button>
+        <div className="vendor-info-card">
+          <div className="business-image">
+            <img src={vendor.businessImages[0]} alt={vendor.businessname} />
+            <h2>{vendor.businessname}</h2>
           </div>
-
-          <button
-            onClick={() =>
-              (window.location.href = `mailto:${vendorDetails.vendorid?.email}`)
-            }
-            className='contact-button'
-          >
+          <div className="vendor-details">
+            <div className="vendor-column">
+              <p><strong>Vendor name:</strong> {`${vendor.vendorid.firstName} ${vendor.vendorid.lastName}`}</p>
+              <p><strong>Category:</strong> {vendor.categoryname}</p>
+              <p><strong>Subcategory:</strong> {vendor.subcategoryname}</p>
+              <p><strong>Email:</strong> {vendor.vendorid.email}</p>
+              <p><strong>Contact:</strong> {vendor.vendorid.phonenumber}</p>
+            </div>
+            <div className="business-column">
+              <p><strong>Business Name:</strong> {vendor.businessname}</p>
+              <p><strong>Description:</strong> {vendor.businessdescription}</p>
+              <p><strong>Business Number:</strong> {vendor.businessnumber}</p>
+              <p><strong>Address:</strong> {`${vendor.city}, ${vendor.province}, ${vendor.postalcode}`}</p>
+            </div>
+          </div>
+          <a href={`mailto:${vendor.vendorid.email}`} className="contact-vendor-button">
             Contact Vendor
-          </button>
+          </a>
         </div>
       </div>
       <Footer />
-    </div>
+    </>
   );
 };
 
