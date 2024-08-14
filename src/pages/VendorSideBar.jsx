@@ -25,25 +25,25 @@ const VendorSideBar = ({ setActiveComponent, activeComponent }) => {
               className={activeComponent === 'orders' ? 'active' : ''}
               onClick={() => setActiveComponent('orders')}
             >
-              Order List
+              Add Catalogue
             </button>
           </li>
-          <li>
+          
             {/* <button 
               className={activeComponent === 'messages' ? 'active' : ''}
               onClick={() => setActiveComponent('messages')}
             >
               Messages
             </button> */}
-          </li>
-          <li>
+       
+          {/* <li>
             <button 
               className={activeComponent === 'services' ? 'active' : ''}
               onClick={() => setActiveComponent('services')}
             >
               Services
             </button>
-          </li>
+          </li> */}
           <li>
             <button 
               className={activeComponent === 'profile' ? 'active' : ''}

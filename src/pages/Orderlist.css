@@ -1,37 +1,122 @@
+/* Scoped CSS for OrderList component */
 .order-list {
-    padding: 20px;
-    max-width: 600px;
-    margin: auto;
+  background: linear-gradient(135deg, #010308, #572f87);
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 700px;
+  margin: 20px auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  color: #fff;
+}
+
+.order-list h3 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+.catalogue-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.order-list .form-group {
+  margin-bottom: 15px;
+}
+
+.order-list .form-group label {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.order-list .form-group input,
+.order-list .form-group textarea {
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  width: 100%;
+}
+
+.order-list .form-group input[type='file'] {
+  padding: 3px;
+  background-color: #fff;
+}
+
+.order-list .btn {
+  padding: 10px;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.order-list .btn:hover {
+  background-color: #45a049;
+}
+
+.order-list .success-message {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 18px;
+  color: #fff;
+}
+
+.order-list .error-message {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 18px;
+  color: #ff4c4c;
+}
+
+/* Media Queries for Responsiveness */
+
+/* For screens with a max width of 768px */
+@media (max-width: 768px) {
+  .order-list {
+    padding: 15px;
+    max-width: 90%;
   }
-  
+
   .order-list h3 {
-    font-size: 1.5em;
-    margin-bottom: 10px;
+    font-size: 20px;
   }
-  
-  .order-list ul {
-    list-style-type: none;
-    padding: 0;
+
+  .order-list .btn {
+    font-size: 14px;
   }
-  
-  .order-list li {
-    background: #f9f9f9;
-    margin: 5px 0;
+}
+
+/* For screens with a max width of 480px */
+@media (max-width: 480px) {
+  .order-list {
     padding: 10px;
-    border-radius: 4px;
+    max-width: 100%;
   }
-  
-  @media (max-width: 600px) {
-    .order-list {
-      padding: 10px;
-    }
-  
-    .order-list h3 {
-      font-size: 1.2em;
-    }
-  
-    .order-list li {
-      font-size: 0.9em;
-    }
+
+  .order-list h3 {
+    font-size: 18px;
+    margin-bottom: 15px;
   }
-  
+
+  .order-list .form-group label {
+    font-size: 14px;
+  }
+
+  .order-list .form-group input,
+  .order-list .form-group textarea {
+    padding: 8px;
+    font-size: 14px;
+  }
+
+  .order-list .btn {
+    padding: 8px;
+    font-size: 12px;
+  }
+
+  .order-list .success-message,
+  .order-list .error-message {
+    font-size: 16px;
+  }
+}

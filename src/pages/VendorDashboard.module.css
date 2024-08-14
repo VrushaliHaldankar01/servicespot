@@ -10,6 +10,24 @@
   display: flex;
   flex: 1;
 }
+/* Container for the form */
+.add-service-container {
+  background-color: #f8f9fa;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: auto;
+}
+
+/* Form heading */
+.add-service-container h3 {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #333;
+}
 
 .vd-sidebar {
   width: 250px;
@@ -134,6 +152,12 @@
   border-radius: 80%;
   color: black;
 }
+.vd-dashboard-button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 5px;
+  margin: 5px;
+}
 
 @media (max-width: 992px) {
   .vd-dashboard-container {
@@ -147,6 +171,12 @@
 
   .vd-dashboard-menu button {
     font-size: 0.9rem;
+  }
+  .vd-dashboard-button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    margin: 5px;
   }
 }
 

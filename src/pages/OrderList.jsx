@@ -1,41 +1,94 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios'; // Import axios for HTTP requests (you can also use fetch)
-import './Orderlist.css'
+import React, { useState } from 'react';
+import './Orderlist.css';
 
 const OrderList = () => {
-  const [orders, setOrders] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [productName, setProductName] = useState('');
+  const [productDescription, setProductDescription] = useState('');
+  const [price, setPrice] = useState('');
+  const [productImage, setProductImage] = useState(null);
+  const [successMessage, setSuccessMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
-  useEffect(() => {
-    // Replace with your API endpoint
-    const fetchOrders = async () => {
-      try {
-        const response = await axios.get('/api/orders'); // Replace with actual endpoint
-        setOrders(response.data);
-      } catch (err) {
-        setError('Failed to fetch orders');
-      } finally {
-        setLoading(false);
-      }
-    };
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-    fetchOrders();
-  }, []);
+    // Empty validation
+    if (!productName || !productDescription || !price || !productImage) {
+      setErrorMessage('Please fill in all fields.');
+      return;
+    }
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>{error}</p>;
+    // Negative price validation
+    if (parseFloat(price) < 0) {
+      setErrorMessage('Price cannot be a negative value.');
+      return;
+    }
+
+    // Mock API call
+    setTimeout(() => {
+      setSuccessMessage('Catalogue submitted successfully!');
+      setErrorMessage('');
+      // Clear the form
+      setProductName('');
+      setProductDescription('');
+      setPrice('');
+      setProductImage(null);
+    }, 1000);
+  };
+
+  const handleImageChange = (e) => {
+    setProductImage(e.target.files[0]);
+  };
 
   return (
-    <div className="order-list">
-      <h3>Order List</h3>
-      <ul>
-        {orders.map(order => (
-          <li key={order.id}>
-            {order.item} for {order.customer} on {order.date}
-          </li>
-        ))}
-      </ul>
+    <div className='order-list'>
+      <h3>Upload Catalogue</h3>
+      <form onSubmit={handleSubmit} className='catalogue-form'>
+        <div className='form-group'>
+          <label htmlFor='productName'>Product Name:</label>
+          <input
+            type='text'
+            id='productName'
+            value={productName}
+            onChange={(e) => setProductName(e.target.value)}
+            required
+          />
+        </div>
+        <div className='form-group'>
+          <label htmlFor='productDescription'>Product Description:</label>
+          <textarea
+            id='productDescription'
+            value={productDescription}
+            onChange={(e) => setProductDescription(e.target.value)}
+            rows='4'
+            required
+          ></textarea>
+        </div>
+        <div className='form-group'>
+          <label htmlFor='price'>Price:</label>
+          <input
+            type='number'
+            id='price'
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
+            required
+          />
+        </div>
+        <div className='form-group'>
+          <label htmlFor='productImage'>Upload Image:</label>
+          <input
+            type='file'
+            id='productImage'
+            onChange={handleImageChange}
+            required
+          />
+        </div>
+        <button type='submit' className='btn'>
+          Submit
+        </button>
+      </form>
+      {errorMessage && <p className='error-message'>{errorMessage}</p>}
+      {successMessage && <p className='success-message'>{successMessage}</p>}
     </div>
   );
 };

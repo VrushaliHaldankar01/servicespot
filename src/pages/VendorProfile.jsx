@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './VendorProfile.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const VendorProfile = () => {
   const [vendor, setVendor] = useState({
@@ -20,7 +21,7 @@ const VendorProfile = () => {
   });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [files, setFiles] = useState(null); // State for file uploads
+  const [files, setFiles] = useState(null);
 
   const vendorId = localStorage.getItem('vendorId');
 
@@ -65,7 +66,7 @@ const VendorProfile = () => {
   };
 
   const handleFileChange = (e) => {
-    setFiles(e.target.files); // Store the selected files
+    setFiles(e.target.files);
   };
 
   const handleSubmit = async (e) => {
@@ -74,27 +75,11 @@ const VendorProfile = () => {
     try {
       const formData = new FormData();
 
-      // Append editable fields
       formData.append('firstName', vendor.firstName);
       formData.append('lastName', vendor.lastName);
       formData.append('email', vendor.email);
       formData.append('phonenumber', vendor.phonenumber);
 
-      // // Append existing images if no new files are selected
-      // if (!files || files.length === 0) {
-      //   vendor.businessImages.forEach((image, index) => {
-      //     formData.append('businessImages', image);
-      //   });
-      // } else {
-      //   // Append new files
-      //   if (files && files.length > 0) {
-      //     for (const file of files) {
-      //       formData.append('businessImages', file);
-      //     }
-      //   }
-      // }
-
-      // Make the API request
       const response = await axios.put(
         `http://localhost:4000/user/editUser/${vendorId}`,
         formData,
@@ -118,97 +103,81 @@ const VendorProfile = () => {
   if (error) return <p>Error fetching vendor data: {error.message}</p>;
 
   return (
-    <div className='vendor-profile'>
-      <form onSubmit={handleSubmit}>
-        <div className='form-group'>
-          <label htmlFor='firstName'>First Name</label>
+    <div className="vendor-profile">
+      <h3 className="text-center">Vendor Profile</h3>
+      <form className="profile-form" onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label htmlFor="firstName">First Name</label>
           <input
-            type='text'
-            id='firstName'
-            name='firstName'
+            type="text"
+            id="firstName"
+            name="firstName"
             value={vendor.firstName || ''}
             onChange={handleChange}
+            className="form-control"
           />
         </div>
-        <div className='form-group'>
-          <label htmlFor='lastName'>Last Name</label>
+        <div className="form-group">
+          <label htmlFor="lastName">Last Name</label>
           <input
-            type='text'
-            id='lastName'
-            name='lastName'
+            type="text"
+            id="lastName"
+            name="lastName"
             value={vendor.lastName || ''}
             onChange={handleChange}
+            className="form-control"
           />
         </div>
-        <div className='form-group'>
-          <label htmlFor='email'>Email</label>
+        <div className="form-group">
+          <label htmlFor="email">Email</label>
           <input
-            type='email'
-            id='email'
-            name='email'
+            type="email"
+            id="email"
+            name="email"
             value={vendor.email || ''}
             onChange={handleChange}
+            className="form-control"
           />
         </div>
-        <div className='form-group'>
-          <label htmlFor='phonenumber'>Phone Number</label>
+        <div className="form-group">
+          <label htmlFor="phonenumber">Phone Number</label>
           <input
-            type='text'
-            id='phonenumber'
-            name='phonenumber'
+            type="text"
+            id="phonenumber"
+            name="phonenumber"
             value={vendor.phonenumber || ''}
             onChange={handleChange}
+            className="form-control"
           />
         </div>
-        <div className='form-group'>
+        {/* Display Profile Information */}
+        <div className="form-group">
           <label>Business Name</label>
           <p>{vendor.businessname}</p>
         </div>
-        <div className='form-group'>
+        <div className="form-group">
           <label>Business Description</label>
           <p>{vendor.businessdescription}</p>
         </div>
-        <div className='form-group'>
-          <label>Province</label>
-          <p>{vendor.province}</p>
-        </div>
-        <div className='form-group'>
-          <label>City</label>
-          <p>{vendor.city}</p>
-        </div>
-        <div className='form-group'>
-          <label>Postal Code</label>
-          <p>{vendor.postalcode}</p>
-        </div>
-        <div className='form-group'>
-          <label>Business Number</label>
-          <p>{vendor.businessnumber}</p>
-        </div>
-        <div className='form-group'>
-          <label>Category</label>
-          <p>{vendor.category}</p>
-        </div>
-        <div className='form-group'>
-          <label>Subcategory</label>
-          <p>{vendor.subcategory}</p>
-        </div>
-        <div className='form-group'>
-          <label htmlFor='businessImages'>Business Images</label>
+        {/* Other profile information... */}
+        <div className="form-group">
+          <label htmlFor="businessImages">Business Images</label>
           <input
-            type='file'
-            id='businessImages'
-            name='businessImages'
+            type="file"
+            id="businessImages"
+            name="businessImages"
             multiple
             onChange={handleFileChange}
+            className="form-control"
           />
-          <div className='image-gallery'>
+          <div className="image-gallery">
             {vendor.businessImages && vendor.businessImages.length > 0 ? (
               vendor.businessImages.map((image, index) => (
                 <img
                   key={index}
                   src={image}
                   alt={`Business ${index}`}
-                  className='business-image'
+                  className="business-image"
                 />
               ))
             ) : (
@@ -216,7 +185,9 @@ const VendorProfile = () => {
             )}
           </div>
         </div>
-        <button type='submit'>Update Profile</button>
+        <button type="submit" className="btn btn-primary">
+          Update Profile
+        </button>
       </form>
     </div>
   );
